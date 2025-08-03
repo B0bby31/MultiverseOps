@@ -6,6 +6,7 @@ kubeconfig
 talosconfig
 .decrypted~*.yaml
 .config.env
+.secret-env
 *.agekey
 *.pub
 *.key
