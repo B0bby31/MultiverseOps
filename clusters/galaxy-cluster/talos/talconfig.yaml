@@ -1,0 +1,236 @@
+---
+clusterName: &clusterName galaxy-cluster
+talosVersion: v1.10.6
+kubernetesVersion: v1.33.3
+endpoint: https://192.168.31.31:6443
+clusterPodNets:
+  - "10.68.0.0/16"
+clusterSvcNets:
+  - "10.95.0.0/16"
+
+additionalApiServerCertSans: &sans
+  - k8s.de.plutode.com
+  - &talosControlplaneVip 192.168.31.31
+  - 127.0.0.1 # KubePrism
+additionalMachineCertSans: *sans
+
+cniConfig:
+  name: none
+
+nodes:
+  - hostname: andromeda
+    controlPlane: true
+    ipAddress: 192.168.31.141
+    installDisk: /dev/nvme1n1
+    nodeLabels:
+      intel.feature.node.kubernetes.io/gpu: "true"
+    talosImageURL: factory.talos.dev/metal-installer/c0e8a037ed69de7d8a380c5707524988e3eb387f4043880a168d911effb67a53
+    schematic:
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/intel-ucode
+            - siderolabs/i915
+            - siderolabs/nvme-cli
+    networkInterfaces:
+      - interface: bond0
+        bond:
+          mode: 802.3ad
+          lacpRate: fast
+          xmitHashPolicy: layer3+4
+          miimon: 100
+          updelay: 200
+          downdelay: 200
+          interfaces:
+            - eno1
+            - enp2s0
+        dhcp: false
+        vlans:
+          - vlanId: 10
+          - vlanId: 15
+          - vlanId: 20
+      - interface: br0
+        dhcp: false
+        addresses:
+          - 192.168.31.32/24
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "192.168.31.1"
+        vip:
+          ip: *talosControlplaneVip
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+            - bond0
+      - interface: br1
+        dhcp: false
+        addresses:
+          - 10.11.0.2/16
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+            - bond0.10
+      - interface: br2
+        dhcp: false
+        addresses:
+          - 192.168.15.2/24
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+            - bond0.15
+      - interface: br3
+        dhcp: false
+        addresses:
+          - 10.21.0.2/24
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+            - bond0.20
+
+  - hostname: milkyway
+    controlPlane: true
+    ipAddress: 192.168.31.221
+    installDisk: /dev/nvme0n1
+    nodeLabels:
+      intel.feature.node.kubernetes.io/gpu: "true"
+    talosImageURL: factory.talos.dev/metal-installer/c0e8a037ed69de7d8a380c5707524988e3eb387f4043880a168d911effb67a53
+    schematic:
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/intel-ucode
+            - siderolabs/i915
+            - siderolabs/nvme-cli
+    networkInterfaces:
+      - interface: bond0
+        bond:
+          mode: 802.3ad
+          lacpRate: fast
+          xmitHashPolicy: layer3+4
+          miimon: 100
+          updelay: 200
+          downdelay: 200
+          interfaces:
+            - enp4s0
+            - enp2s0
+        dhcp: false
+        vlans:
+          - vlanId: 10
+          - vlanId: 15
+          - vlanId: 20
+      - interface: br0
+        dhcp: false
+        addresses:
+          - 192.168.31.33/24
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "192.168.31.1"
+        vip:
+          ip: *talosControlplaneVip
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+            - bond0
+      - interface: br1
+        dhcp: false
+        addresses:
+          - 10.11.0.3/16
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+            - bond0.10
+      - interface: br2
+        dhcp: false
+        addresses:
+          - 192.168.15.3/24
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+            - bond0.15
+      - interface: br3
+        dhcp: false
+        addresses:
+          - 10.21.0.3/24
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+            - bond0.20
+
+  - hostname: triangulum
+    controlPlane: true
+    ipAddress: 192.168.31.226
+    installDisk: /dev/nvme0n1
+    talosImageURL: factory.talos.dev/metal-installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
+    networkInterfaces:
+      - interface: enp5s0
+        dhcp: false
+        vlans:
+          - vlanId: 10
+          - vlanId: 15
+          - vlanId: 20
+      - interface: br0
+        dhcp: false
+        addresses:
+          - 192.168.31.34/24
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "192.168.31.1"
+        vip:
+          ip: *talosControlplaneVip
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+            - enp5s0
+      - interface: br1
+        dhcp: false
+        addresses:
+          - 10.11.0.4/16
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+            - enp5s0.10
+      - interface: br2
+        dhcp: false
+        addresses:
+          - 192.168.15.4/24
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+            - enp5s0.15
+      - interface: br3
+        dhcp: false
+        addresses:
+          - 10.21.0.4/24
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+            - enp5s0.20
+
+# Global patches
+patches:
+  - "@./patches/global/files.yaml"
+  - "@./patches/global/kubelet.yaml"
+  - "@./patches/global/network.yaml"
+  - "@./patches/global/time.yaml"
+  - "@./patches/global/sysctl.yaml"
+
+# Controller patches
+controlPlane:
+  nodeLabels:
+    topology.kubernetes.io/region: *clusterName
+    topology.kubernetes.io/zone: m
+  patches:
+    - "@./patches/controller/cluster.yaml"
+    - "@./patches/controller/disable-admission-controller.yaml"
