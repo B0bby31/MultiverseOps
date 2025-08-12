@@ -12,6 +12,8 @@ spec:
   url: oci://ghcr.io/coredns/charts/coredns
   ref:
     tag: 1.43.2
+  secretRef:
+    name: ghcr-auth
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
