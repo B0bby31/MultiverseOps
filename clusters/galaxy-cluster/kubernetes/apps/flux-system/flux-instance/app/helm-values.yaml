@@ -14,7 +14,7 @@ instance:
     kind: GitRepository
     url: "https://github.com/B0bby31/MultiverseOps.git"
     ref: "refs/heads/main"
-    path: kubernetes/galaxy-cluster/flux/cluster
+    path: clusters/galaxy-cluster/kubernetes/flux/cluster
   commonMetadata:
     labels:
       app.kubernetes.io/name: flux
