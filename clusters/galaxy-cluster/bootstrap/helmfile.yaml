@@ -36,12 +36,12 @@ releases:
     values: ['../kubernetes/apps/cert-manager/cert-manager/app/helm-values.yaml']
     needs: ['kube-system/coredns']
 
-  - name: bitwarden-secrets
+  - name: sm-operator
     namespace: bitwarden-secrets
     atomic: true
     chart: bitwarden/sm-operator
     version: 0.1.0
-    values: ['../kubernetes/apps/bitwarden-secrets/bitwarden/app/helm-values.yaml']
+    values: ['../kubernetes/apps/bitwarden-secrets/sm-operator/app/helm-values.yaml']
     needs: ['kube-system/coredns']
 
   - name: reflector
