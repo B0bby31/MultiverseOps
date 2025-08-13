@@ -2,7 +2,7 @@ settings:
   # How often the secrets synchronize in seconds.  Minimum value is 180.
   bwSecretsManagerRefreshInterval: 300
   # Cloud region for sync.  Please see: https://bitwarden.com/help/families-for-enterprise-self-hosted/#step-1-enable-cloud-communication
-  cloudRegion: US
+  cloudRegion: EU
   # This is the internal Kubernetes DNS zone.  You will likely not need to change this
   # unless you have specifically changed the internal DNS name.
   kubernetesClusterDomain: cluster.local
