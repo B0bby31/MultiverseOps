@@ -1,0 +1,12 @@
+---
+apiVersion: "cilium.io/v2"
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: "lan-pool"
+spec:
+  blocks:
+  - start: "192.168.31.35"
+    stop: "192.168.31.39"
+  serviceSelector:
+    matchLabels:
+      network: lan
