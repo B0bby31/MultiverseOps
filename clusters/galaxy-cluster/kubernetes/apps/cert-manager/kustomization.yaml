@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - ./cert-manager/ks.yaml
   - ./njalla-webhook/ks.yaml
+  - ./letsencrypt-issuer/ks.yaml
