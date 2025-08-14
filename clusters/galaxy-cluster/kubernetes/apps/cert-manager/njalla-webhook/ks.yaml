@@ -2,19 +2,28 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app cert-manager
+  name: &app njalla-webhook
   namespace: &namespace cert-manager
 spec:
   targetNamespace: *namespace
+  dependsOn:
+    - name: cert-manager
+      namespace: *namespace
+    - name: cluster-secrets
+      namespace: flux-system 
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./clusters/galaxy-cluster/kubernetes/apps/cert-manager/cert-manager/app
+  path: ./clusters/galaxy-cluster/kubernetes/apps/cert-manager/njalla-webhook/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
+  postBuild:
+    substituteFrom:
+      - name: bw-secrets-cert
+        kind: Secret
   wait: true
   interval: 30m
   retryInterval: 1m
