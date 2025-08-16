@@ -3,7 +3,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: traefik
+  name: traefik-crds
 spec:
   interval: 5m
   layerSelector:
@@ -24,7 +24,7 @@ spec:
     name: traefik-crds
   install:
     remediation:
-      retries: -1
+      retries: 3
   upgrade:
     cleanupOnFail: true
     remediation:
