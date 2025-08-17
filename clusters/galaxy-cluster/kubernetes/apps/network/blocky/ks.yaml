@@ -11,10 +11,6 @@ spec:
       app.kubernetes.io/name: *app
   interval: 1h
   path: ./clusters/galaxy-cluster/kubernetes/apps/network/blocky/app
-  postBuild:
-    substituteFrom:
-      - name: cluster-secrets
-        kind: Secret
   prune: true
   retryInterval: 2m
   sourceRef:
