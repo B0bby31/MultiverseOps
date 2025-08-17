@@ -21,8 +21,8 @@ spec:
     persistence:
       config:
         globalMounts:
-          - path: /app/config.yaml
-            subPath: config.yaml
+          - path: /app/config.yml
+            subPath: config.yml
         name: blocky-config
         type: configMap
   valuesFrom:
