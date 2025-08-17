@@ -23,13 +23,11 @@ spec:
     kind: OCIRepository
     name: traefik-ingress
   install:
-    crds:
-      skip: true
+    crds: "Skip"
     remediation:
       retries: 3
   upgrade:
-    crds:
-      skip: true
+    crds: "Skip"
     cleanupOnFail: true
     remediation:
       retries: 3
