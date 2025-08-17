@@ -22,7 +22,7 @@ spec:
       config:
         globalMounts:
           - path: /app/config.yml
-            subPath: config.yml
+            subPath: config.yaml
         name: blocky-config
         type: configMap
   valuesFrom:
