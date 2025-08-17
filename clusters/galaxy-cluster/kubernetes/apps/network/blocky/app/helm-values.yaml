@@ -25,18 +25,6 @@ controllers:
             drop:
               - ALL
           readOnlyRootFilesystem: true
-    affinity:
-      podAntiAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                  - key: app.kubernetes.io/name
-                    operator: In
-                    values:
-                      - blocky
-              topologyKey: kubernetes.io/hostnam
 defaultPodOptions:
   securityContext:
     fsGroup: 568
@@ -46,6 +34,18 @@ defaultPodOptions:
     seccompProfile:
       type: RuntimeDefault
   shareProcessNamespace: true
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values:
+                    - blocky
+            topologyKey: kubernetes.io/hostname
 persistence:
   config:
     globalMounts:
