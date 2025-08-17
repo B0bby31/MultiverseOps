@@ -46,13 +46,7 @@ defaultPodOptions:
                   values:
                     - blocky
             topologyKey: kubernetes.io/hostname
-persistence:
-  config:
-    globalMounts:
-      - path: /app/config.yaml
-        subPath: config.yaml
-    name: blocky-config
-    type: configMap
+
 service:
   app:
     controller: blocky
