@@ -1,0 +1,74 @@
+controllers:
+  blocky:
+    type: deployment
+    replicas: 3
+    containers:
+      app:
+        image:
+          repository: ghcr.io/0xerr0r/blocky
+          tag: v0.26.2
+        probes:
+          liveness:
+            enabled: true
+          readiness:
+            enabled: true
+        resources:
+          limits:
+            cpu: 1
+            memory: 420Mi
+          requests:
+            cpu: 50m
+            memory: 250Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - ALL
+          readOnlyRootFilesystem: true
+    affinity:
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/name
+                    operator: In
+                    values:
+                      - blocky
+              topologyKey: kubernetes.io/hostnam
+defaultPodOptions:
+  securityContext:
+    fsGroup: 568
+    runAsGroup: 568
+    runAsNonRoot: true
+    runAsUser: 568
+    seccompProfile:
+      type: RuntimeDefault
+  shareProcessNamespace: true
+persistence:
+  config:
+    globalMounts:
+      - path: /app/config.yaml
+        subPath: config.yaml
+    name: blocky-config
+    type: configMap
+service:
+  app:
+    controller: blocky
+    labels:
+      network: lan
+    ports:
+      dns-udp:
+        port: 53
+        targetPort: 5353
+        protocol: UDP
+    type: LoadBalancer
+
+  metrics:
+    controller: blocky
+    type: ClusterIP
+    ports:
+      http:
+        port: 4000
+        primary: true

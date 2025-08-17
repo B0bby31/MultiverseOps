@@ -1,0 +1,40 @@
+ports:
+  dns: 5353
+  http: 4000
+
+upstreams:
+  init:
+    strategy: fast
+  groups:
+    default:
+      - https://dns.quad9.net/dns-query
+      - https://dns.digitale-gesellschaft.ch/dns-query
+      - 208.67.222.123
+      - 1.1.1.1
+
+# Add needed queries
+customDNS:
+  customTTL: 1h
+  mapping:
+    lp.de.plutode.com: 192.168.31.35
+    ha.de.plutode.com: 10.11.0.52
+    jellyfin.de.plutode.com: 10.21.0.31
+
+# Split dns
+conditional:
+  fallbackUpstream: false
+  mapping:
+    nl.plutode.com: 192.168.10.11
+    lu.plutode.com: 192.168.13.69
+    hvb.plutode.com: 192.168.1.76
+
+blocking:
+  denylists:
+    general:
+      - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+      - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/multi.txt
+
+  clientGroupsBlock:
+    default:
+      - general
+
