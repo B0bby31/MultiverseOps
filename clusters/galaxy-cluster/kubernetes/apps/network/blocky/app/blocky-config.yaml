@@ -1,5 +1,5 @@
 ports:
-  dns: 5353
+  dns: 53
   http: 4000
 
 upstreams:

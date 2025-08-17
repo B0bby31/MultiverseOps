@@ -57,8 +57,10 @@ service:
     ports:
       dns-udp:
         port: 53
-        targetPort: 5353
         protocol: UDP
+      dns-tcp:
+        port: 53
+        protocol: TCP
     type: LoadBalancer
 
   metrics:
