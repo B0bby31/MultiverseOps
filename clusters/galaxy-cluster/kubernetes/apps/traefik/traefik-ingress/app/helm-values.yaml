@@ -25,3 +25,10 @@ ports:
   websecure:
     http3:
       enabled: true
+
+
+# -- Create a default IngressClass for Traefik
+ingressClass:  # @schema additionalProperties: false
+  enabled: true
+  isDefaultClass: true
+  name: "traefik-ingress-lan"
