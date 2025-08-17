@@ -12,6 +12,10 @@ upstreams:
       - 208.67.222.123
       - 1.1.1.1
 
+bootstrapDns:
+  - tcp+udp:1.1.1.1
+  - tcp+udp:8.8.8.8
+
 # Add needed queries
 customDNS:
   customTTL: 1h
