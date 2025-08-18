@@ -13,3 +13,5 @@ spec:
   ref:
     tag: 4.2.0
   url: oci://ghcr.io/bjw-s-labs/helm/app-template
+  secretRef:
+    name: ghcr-auth
