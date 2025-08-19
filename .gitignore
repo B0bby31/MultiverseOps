@@ -23,5 +23,5 @@ Brewfile.lock.json
 .idea
 # wiki
 wiki
-# Bootstrap
-test-helmcharts
+# Ignore testing folders
+**/demo/
