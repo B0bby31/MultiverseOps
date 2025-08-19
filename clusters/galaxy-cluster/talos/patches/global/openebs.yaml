@@ -5,10 +5,10 @@ machine:
     topology.kubernetes.io/zone: m
   kubelet:
     extraMounts:
-      - destination: /var/openebs/local
+      - destination: /var/openebs
         type: bind
-        source: /var/openebs/local
+        source: /var/openebs
         options:
-          - rbind
+          - bind
           - rshared
           - rw
