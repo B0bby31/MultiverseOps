@@ -34,24 +34,6 @@ spec:
           enabled: false
         zfs:
           enabled: false
-    openebs-crds:
-      csi:
-        volumeSnapshots:
+      replicated:
+        mayastor:
           enabled: false
-    mayastor:
-      csi:
-        node:
-          initContainers:
-            enabled: false
-    localpv-provisioner:
-      localpv:
-        image:
-          registry: quay.io/
-      helperPod:
-        image:
-          registry: quay.io/
-      hostpathClass:
-        enabled: true
-        name: openebs-hostpath
-        isDefaultClass: false
-        basePath: /var/openebs/local
