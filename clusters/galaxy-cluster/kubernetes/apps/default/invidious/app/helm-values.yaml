@@ -12,14 +12,14 @@ ingress:
     kubernetes.io/tls-acme: "true"
     cert-manager.io/cluster-issuer: letsencrypt-prod
   hosts:
-    - host: inv.de.plutode.com
+    - host: inv.${SECRET_DOMAIN}
       paths:
         - path: /
           pathType: Prefix
   tls:
     - secretName: invidious-tls
       hosts:
-        - inv.de.plutode.com
+        - inv.${SECRET_DOMAIN}
 
 # Reference: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
 postgresql:
@@ -28,7 +28,7 @@ postgresql:
 # Reference: https://github.com/iv-org/invidious/blob/master/config/config.example.yml
 config:
   db:
-    user: app
+    user: generalApps
     host: local-database-rw.database.svc.cluster.local
     port: 5432
     dbname: invidious
