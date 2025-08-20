@@ -172,4 +172,12 @@
       datasourceTemplate: "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
     },
   ],
+  "hostRules": [
+    {
+      "hostType": "docker",
+      "matchHost": "ghcr.io",
+      "username": "b0bby31",
+      "password": "{{ env.GHCR_TOKEN }}"
+    }
+  ],
 }
