@@ -42,7 +42,7 @@ spec:
               podAffinityTerm:
                 labelSelector:
                   matchExpressions:
-                    - key: postgresql.cnpg.io/cluster
+                    - key: cnpg.io/cluster
                       operator: In
                       values:
                         - local-database
