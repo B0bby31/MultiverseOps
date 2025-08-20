@@ -29,6 +29,7 @@ spec:
       instances: 3
       storage:
         storageClass: "openebs-hostpath"
+        size: 50Gi
 
       roles:
         - name: generalApps
