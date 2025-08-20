@@ -48,7 +48,7 @@ releases:
     namespace: kube-system
     atomic: true
     chart: oci://ghcr.io/emberstack/helm-charts/reflector
-    version: 9.1.25
+    version: 9.1.26
     needs: ['kube-system/cilium']
 
   - name: flux-operator
