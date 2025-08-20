@@ -31,10 +31,12 @@ spec:
         storageClass: "openebs-hostpath"
 
       roles:
-        - name: invidious
+        - name: generalApps
           ensure: present
           login: true
           superuser: false
+          passwordSecret:
+            name: generalapps-auth
       affinity:
         podAntiAffinityType: preferred
         topologyKey: kubernetes.io/hostname
