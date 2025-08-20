@@ -1,0 +1,58 @@
+# Setting replicaCount higher than 1 may cause PostgreSQL database deadlocks.
+# This happens when multiple Invidious processes simultaneously attempt to refresh channel subscriptions for users.
+replicaCount: 1
+
+image:
+  tag: "2.20250517.0"
+
+ingress:
+  enabled: true
+  className: "traefik-ingress-lan"
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  hosts:
+    - host: inv.de.plutode.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: invidious-tls
+      hosts:
+        - inv.de.plutode.com
+
+# Reference: https://github.com/bitnami/charts/tree/main/bitnami/postgresql
+postgresql:
+  enabled: false
+
+# Reference: https://github.com/iv-org/invidious/blob/master/config/config.example.yml
+config:
+  db:
+    user: app
+    host: local-database-rw.database.svc.cluster.local
+    port: 5432
+    dbname: invidious
+    password: ${password}
+  hmac_key: ${INVIDIOUS_HMAC}
+  po_token: ${INVIDIOUS_PO_TOKEN}
+  visitor_data: ${INVIDIOUS_VISITOR_DATA}
+  port: 3000
+  external_port: 443
+  domain: "inv.${SECRET_DOMAIN}"
+  https_only: true
+  channel_threads: 1
+  full_refresh: false
+  feed_threads: 1
+  captcha_enabled: false
+  admins: ["Collin"]
+  local: true
+  signature_server: invidious-sighelper.default.svc.cluster.local:12999
+
+sighelper:
+  enabled: true
+  service:
+    port: 12999
+  image:
+    repository: quay.io/invidious/inv-sig-helper
+    tag: master-dcda9f1
+    pullPolicy: Always

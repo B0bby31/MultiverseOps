@@ -1,0 +1,10 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: invidious-db
+spec:
+  name: invidious
+  owner: generalApps
+  cluster:
+    name: local-database
