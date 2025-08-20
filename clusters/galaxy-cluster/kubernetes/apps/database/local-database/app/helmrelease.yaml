@@ -1,0 +1,49 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cnpg-database
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: cluster
+      version: 0.3.1
+      sourceRef:
+        kind: HelmRepository
+        name: cnpg
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: "local-database"
+    type: postgresql
+    mode: standalone
+    cluster:
+      # -- Number of instances
+      instances: 3
+      storage:
+        storageClass: "openebs-hostpath"
+
+      roles:
+        - name: invidious
+          ensure: present
+          login: true
+          superuser: false
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: postgresql.cnpg.io/cluster
+                      operator: In
+                      values:
+                        - local-database
+                topologyKey: kubernetes.io/hostname     
