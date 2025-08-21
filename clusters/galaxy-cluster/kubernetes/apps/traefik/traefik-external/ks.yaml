@@ -2,14 +2,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app traefik-ingress
+  name: &app traefik-external
   namespace: &namespace traefik
 spec:
   targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./clusters/galaxy-cluster/kubernetes/apps/traefik/traefik-ingress/app
+  path: ./clusters/galaxy-cluster/kubernetes/apps/traefik/traefik-external/app
   prune: true
   sourceRef:
     kind: GitRepository

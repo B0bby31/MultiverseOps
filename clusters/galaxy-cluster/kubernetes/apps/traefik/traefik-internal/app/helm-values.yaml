@@ -30,5 +30,5 @@ ports:
 # -- Create a default IngressClass for Traefik
 ingressClass:  # @schema additionalProperties: false
   enabled: true
-  isDefaultClass: false
+  isDefaultClass: true
   name: "traefik-internal"
