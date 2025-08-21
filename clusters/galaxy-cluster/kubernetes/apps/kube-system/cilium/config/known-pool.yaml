@@ -1,0 +1,12 @@
+---
+apiVersion: "cilium.io/v2"
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: "known-pool"
+spec:
+  blocks:
+  - start: "10.21.0.40"
+    stop: "10.21.0.48"
+  serviceSelector:
+    matchLabels:
+      network: known
