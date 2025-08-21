@@ -20,7 +20,7 @@ cniConfig:
 nodes:
   - hostname: andromeda
     controlPlane: true
-    ipAddress: 192.168.31.141
+    ipAddress: 192.168.31.32
     installDisk: /dev/nvme1n1
     nodeLabels:
       intel.feature.node.kubernetes.io/gpu: "true"
@@ -93,7 +93,7 @@ nodes:
 
   - hostname: milkyway
     controlPlane: true
-    ipAddress: 192.168.31.221
+    ipAddress: 192.168.31.33
     installDisk: /dev/nvme0n1
     nodeLabels:
       intel.feature.node.kubernetes.io/gpu: "true"
@@ -166,16 +166,12 @@ nodes:
 
   - hostname: triangulum
     controlPlane: true
-    ipAddress: 192.168.31.226
+    ipAddress: 192.168.31.34
     installDisk: /dev/nvme0n1
     talosImageURL: factory.talos.dev/metal-installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
     networkInterfaces:
       - interface: enp5s0
         dhcp: false
-        vlans:
-          - vlanId: 10
-          - vlanId: 15
-          - vlanId: 20
       - interface: br0
         dhcp: false
         addresses:
@@ -198,7 +194,7 @@ nodes:
           stp:
             enabled: true
           interfaces:
-            - enp5s0.10
+            - enp8s0
       - interface: br2
         dhcp: false
         addresses:
@@ -207,7 +203,7 @@ nodes:
           stp:
             enabled: true
           interfaces:
-            - enp5s0.15
+            - enp7s0
       - interface: br3
         dhcp: false
         addresses:
@@ -216,7 +212,7 @@ nodes:
           stp:
             enabled: true
           interfaces:
-            - enp5s0.20
+            - enp6s0
 
 # Global patches
 patches:
