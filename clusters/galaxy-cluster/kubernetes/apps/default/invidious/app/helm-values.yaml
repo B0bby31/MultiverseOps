@@ -7,7 +7,6 @@ image:
 
 ingress:
   enabled: true
-  className: "traefik-ingress-lan"
   annotations:
     kubernetes.io/tls-acme: "true"
     cert-manager.io/cluster-issuer: letsencrypt-prod

@@ -57,6 +57,7 @@ metadata:
     kubernetes.io/tls-acme: "true"
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
+  ingressClassName: "traefik-external"
   rules:
     - host: lp.${SECRET_DOMAIN}
       http:
