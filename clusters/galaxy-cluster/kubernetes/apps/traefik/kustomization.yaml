@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - ./traefik-crds/ks.yaml
   - ./traefik-ingress/ks.yaml
+  - ./traefik-internal/ks.yaml

@@ -1,0 +1,22 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: traefik-internal
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: traefik-ingress
+  install:
+    crds: "Skip"
+    remediation:
+      retries: 3
+  upgrade:
+    crds: "Skip"
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  valuesFrom:
+    - kind: ConfigMap
+      name: traefik-internal-helm-values

@@ -1,0 +1,34 @@
+deployment:
+  # -- Enable deployment
+  enabled: true
+  # -- Deployment or DaemonSet
+  kind: DaemonSet
+
+service:
+  enabled: true
+  ## -- Single service is using `MixedProtocolLBService` feature gate.
+  ## -- When set to false, it will create two Service, one for TCP and one for UDP.
+  single: false
+  type: LoadBalancer
+  annotations:
+    "lbipam.cilium.io/sharing-key": "traefik-internal"
+  labels:
+    network: known
+
+ports:
+  web:
+    redirections:
+      entryPoint:
+        to: websecure
+        scheme: https
+        permanent: true
+  websecure:
+    http3:
+      enabled: true
+
+
+# -- Create a default IngressClass for Traefik
+ingressClass:  # @schema additionalProperties: false
+  enabled: true
+  isDefaultClass: false
+  name: "traefik-internal"
