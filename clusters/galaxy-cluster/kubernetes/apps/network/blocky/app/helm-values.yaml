@@ -56,6 +56,7 @@ service:
       network: lan
     annotations:
       "lbipam.cilium.io/sharing-key": "blocky-shared"
+      "lbipam.cilium.io/ips": "192.168.31.36"
     ports:
       dns-udp:
         port: 53
