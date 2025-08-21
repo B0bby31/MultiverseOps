@@ -95,6 +95,8 @@ spec:
             hosts:
               - sonarr.${SECRET_DOMAIN}
     persistence:
+      config:
+        type: emptyDir
       media:
         type: nfs
         server: 192.168.31.21
