@@ -5,3 +5,4 @@ resources:
   - ./vibe-job-lp/ks.yaml
   - ./invidious/ks.yaml
   - ./sonarr/ks.yaml
+  - ./prowlarr/ks.yaml
