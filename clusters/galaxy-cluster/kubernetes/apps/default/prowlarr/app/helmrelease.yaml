@@ -38,7 +38,8 @@ spec:
               PROWLARR__POSTGRES__MAINDB: prowlarr-main
               PROWLARR__POSTGRES__LOGDB: prowlarr-log
               PROWLARR__POSTGRES__USER: generalApps
-              PROWLARR__POSTGRES__PASSWORD: ${password}              
+              PROWLARR__POSTGRES__PASSWORD: ${password}    
+              PROWLARR__LOG__ANALYTICSENABLED: false          
               PROWLARR__LOG__LEVEL: info
               PROWLARR__SERVER__PORT: &port 80
               TZ: Europe/Berlin

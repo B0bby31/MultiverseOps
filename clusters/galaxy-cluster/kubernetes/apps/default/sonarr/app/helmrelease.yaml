@@ -39,6 +39,7 @@ spec:
               SONARR__POSTGRES__LOGDB: sonarr-log
               SONARR__POSTGRES__USER: generalApps
               SONARR__POSTGRES__PASSWORD: ${password}
+              SONARR__LOG__ANALYTICSENABLED: false
               SONARR__LOG__LEVEL: info
               SONARR__SERVER__PORT: &port 80
               TZ: Europe/Berlin
