@@ -18,11 +18,10 @@ spec:
   chart:
     spec:
       chart: invidious
-      version: v2.3.1
+      version: v2.3.0
       sourceRef:
         kind: HelmRepository
-        name: charts-plutode
-        namespace: flux-system
+        name: invidious
   install:
     remediation:
       retries: 3
