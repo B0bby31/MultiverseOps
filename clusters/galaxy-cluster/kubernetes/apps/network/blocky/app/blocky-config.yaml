@@ -26,6 +26,7 @@ customDNS:
     nas.de.plutode.com: 10.21.0.31
     request.de.plutode.com: 10.21.0.40
     sonarr.de.plutode.com: 10.21.0.40
+    prowlarr.de.plutode.com: 10.21.0.40
     radarr.de.plutode.com: 10.21.0.40
     youtube.de.plutode.com: 10.21.0.40
     inv.de.plutode.com: 10.21.0.40
