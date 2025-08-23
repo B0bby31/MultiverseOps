@@ -35,6 +35,7 @@ spec:
               DB_USER: generalApps
               DB_NAME: jellyseerr
               DB_PASS: ${password}
+              API_KEY: ${JELLYSEER_API_KEY}
             probes:
               liveness: &probes
                 enabled: true
