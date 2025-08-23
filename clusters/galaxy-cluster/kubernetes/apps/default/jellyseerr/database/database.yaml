@@ -1,0 +1,10 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: jellyseerr-db
+spec:
+  name: jellyseerr
+  owner: generalApps
+  cluster:
+    name: local-database
