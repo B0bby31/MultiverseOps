@@ -1,0 +1,40 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  packageRules: [
+    {
+      description: "Flux Operator Group",
+      groupName: "flux-operator",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/flux-operator/", "/flux-instance/"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 2,
+    },
+    {
+      description: "Kubernetes Group",
+      groupName: "kubernetes",
+      matchDatasources: ["docker"],
+      matchPackageNames: [
+        "/kube-apiserver/",
+        "/kube-controller-manager/",
+        "/kube-scheduler/",
+        "/kubelet/",
+      ],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 4,
+    },
+    {
+      description: "Talos Group",
+      groupName: "talos",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/metal-installer/", "/talosctl/"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 2,
+    },
+  ],
+}
