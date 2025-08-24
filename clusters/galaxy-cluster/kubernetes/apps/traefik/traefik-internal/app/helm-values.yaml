@@ -32,3 +32,14 @@ ingressClass:  # @schema additionalProperties: false
   enabled: true
   isDefaultClass: true
   name: "traefik-internal"
+
+providers:
+  kubernetesIngress:
+    # -- Load Kubernetes Ingress provider
+    enabled: true
+
+    # -- When ingressClass is set, only Ingresses containing an annotation with the same value are processed. Otherwise, Ingresses missing the annotation, having an empty value, or the value traefik are processed.
+    ingressClass: "traefik-internal"
+    # labelSelector: environment=production,method=traefik
+    # -- Array of namespaces to watch. If left empty, Traefik watches all namespaces. . When using `rbac.namespaced`, it will watch helm release namespace and namespaces listed in this array.
+    namespaces: []
