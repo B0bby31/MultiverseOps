@@ -1,7 +1,13 @@
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json
 clusterName: &clusterName galaxy-cluster
+
+# renovate: datasource=docker depName=ghcr.io/siderolabs/installer
 talosVersion: v1.10.6
+
+# renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
 kubernetesVersion: v1.33.3
+
 endpoint: https://192.168.31.31:6443
 clusterPodNets:
   - "10.68.0.0/16"
@@ -97,6 +103,8 @@ nodes:
     installDisk: /dev/nvme0n1
     nodeLabels:
       intel.feature.node.kubernetes.io/gpu: "true"
+      hardware.plutode.com/display: "lcd"
+      hardware.plutode.com/rgb: "true"
     talosImageURL: factory.talos.dev/metal-installer/c0e8a037ed69de7d8a380c5707524988e3eb387f4043880a168d911effb67a53
     schematic:
       customization:
@@ -221,6 +229,7 @@ patches:
   - "@./patches/global/network.yaml"
   - "@./patches/global/time.yaml"
   - "@./patches/global/sysctl.yaml"
+  - "@./patches/global/sysupgrade.yaml"
 
 # Controller patches
 controlPlane:
