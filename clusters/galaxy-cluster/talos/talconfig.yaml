@@ -71,8 +71,6 @@ nodes:
             - bond0
       - interface: br1
         dhcp: false
-        addresses:
-          - 10.11.0.2/16
         bridge:
           stp:
             enabled: true
@@ -80,8 +78,6 @@ nodes:
             - bond0.10
       - interface: br2
         dhcp: false
-        addresses:
-          - 192.168.15.2/24
         bridge:
           stp:
             enabled: true
@@ -89,8 +85,6 @@ nodes:
             - bond0.15
       - interface: br3
         dhcp: false
-        addresses:
-          - 10.21.0.2/24
         bridge:
           stp:
             enabled: true
@@ -146,8 +140,6 @@ nodes:
             - bond0
       - interface: br1
         dhcp: false
-        addresses:
-          - 10.11.0.3/16
         bridge:
           stp:
             enabled: true
@@ -155,8 +147,6 @@ nodes:
             - bond0.10
       - interface: br2
         dhcp: false
-        addresses:
-          - 192.168.15.3/24
         bridge:
           stp:
             enabled: true
@@ -164,8 +154,6 @@ nodes:
             - bond0.15
       - interface: br3
         dhcp: false
-        addresses:
-          - 10.21.0.3/24
         bridge:
           stp:
             enabled: true
@@ -196,8 +184,6 @@ nodes:
             - enp5s0
       - interface: br1
         dhcp: false
-        addresses:
-          - 10.11.0.4/16
         bridge:
           stp:
             enabled: true
@@ -205,8 +191,6 @@ nodes:
             - enp8s0
       - interface: br2
         dhcp: false
-        addresses:
-          - 192.168.15.4/24
         bridge:
           stp:
             enabled: true
@@ -214,8 +198,6 @@ nodes:
             - enp7s0
       - interface: br3
         dhcp: false
-        addresses:
-          - 10.21.0.4/24
         bridge:
           stp:
             enabled: true
