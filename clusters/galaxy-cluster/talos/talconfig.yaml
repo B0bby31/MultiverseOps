@@ -6,7 +6,7 @@ clusterName: &clusterName galaxy-cluster
 talosVersion: v1.10.6
 
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
-kubernetesVersion: v1.33.3
+kubernetesVersion: v1.33.4
 
 endpoint: https://192.168.31.31:6443
 clusterPodNets:
