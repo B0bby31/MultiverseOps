@@ -32,3 +32,5 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
+  values:
+    namespaceOverride: "network" # Why is the namespace overriden in the helm chart ?!
