@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - ./blocky/ks.yaml
   - ./multus/ks.yaml
+  - ./whereabouts/ks.yaml
