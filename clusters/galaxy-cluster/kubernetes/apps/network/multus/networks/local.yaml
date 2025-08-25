@@ -11,10 +11,10 @@ spec:
       "type": "bridge",
       "bridge": "br1",
       "ipam": {
-        "type": "host-local",
-        "subnet": "10.11.0.0/16",
-        "rangeStart": "10.11.0.30",
-        "rangeEnd": "10.11.0.40",
+        "type": "whereabouts",
+        "range": "10.11.0.0/16",
+        "range_start": "10.11.0.30",
+        "range_end": "10.11.0.40",
         "routes": [
           { "dst": "10.11.0.0/16" }
         ],
