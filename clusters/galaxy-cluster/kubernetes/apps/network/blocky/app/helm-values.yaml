@@ -2,6 +2,9 @@ controllers:
   blocky:
     type: deployment
     replicas: 3
+    strategy: RollingUpdate
+    rollingUpdate:
+      unavailable: 2
     containers:
       app:
         image:
