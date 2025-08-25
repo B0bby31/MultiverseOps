@@ -1,0 +1,23 @@
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: multus-lan
+spec:
+  config: |-
+    {
+      "cniVersion": "0.3.1",
+      "name": "multus-lan",
+      "type": "bridge",
+      "bridge": "br0",
+      "ipam": {
+        "type": "host-local",
+        "subnet": "192.168.31.0/24",
+        "rangeStart": "192.168.31.15",
+        "rangeEnd": "192.168.31.19",
+        "routes": [
+          { "dst": "0.0.0.0/0" }
+        ],
+        "gateway": "192.168.31.1"
+      }
+    }

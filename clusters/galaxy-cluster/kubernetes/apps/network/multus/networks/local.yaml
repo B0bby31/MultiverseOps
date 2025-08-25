@@ -13,8 +13,8 @@ spec:
       "ipam": {
         "type": "host-local",
         "subnet": "10.11.0.0/16",
-        "rangeStart": "10.11.0.10",
-        "rangeEnd": "10.11.0.20",
+        "rangeStart": "10.11.0.30",
+        "rangeEnd": "10.11.0.40",
         "routes": [
           { "dst": "10.11.0.0/16" }
         ],
