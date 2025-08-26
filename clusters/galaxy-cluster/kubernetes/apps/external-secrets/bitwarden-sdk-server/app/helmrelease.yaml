@@ -21,7 +21,7 @@ metadata:
   name: bitwarden-sdk-server
 spec:
   interval: 30m
-  chart:
+  chartRef:
     kind: OCIRepository
     name: bitwarden-sdk-server
   install:
