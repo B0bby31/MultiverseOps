@@ -1,0 +1,70 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app bitwarden-sdk-server
+  namespace: &namespace external-secrets
+spec:
+  targetNamespace: *namespace
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  path: ./clusters/galaxy-cluster/kubernetes/apps/external-secrets/bitwarden-sdk-server/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  wait: true
+  dependsOn:
+    - name: bitwarden-sdk-server-certificate
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app bitwarden-sdk-server-issuer
+  namespace: &namespace external-secrets
+spec:
+  targetNamespace: *namespace
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  path: ./clusters/galaxy-cluster/kubernetes/apps/external-secrets/bitwarden-sdk-server/issuer
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  dependsOn:
+    - name: cert-manager
+      namespace: cert-manager
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app bitwarden-sdk-server-certificate
+  namespace: &namespace external-secrets
+spec:
+  targetNamespace: *namespace
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  path: ./clusters/galaxy-cluster/kubernetes/apps/external-secrets/bitwarden-sdk-server/certificate
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  dependsOn:
+    - name: bitwarden-sdk-server-issuer
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
