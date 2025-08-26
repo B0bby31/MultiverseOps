@@ -1,0 +1,19 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: genapps-auth
+spec:
+  refreshInterval: 300s
+  secretStoreRef:
+    name: bitwarden-secretsmanager
+    kind: ClusterSecretStore
+  target:
+    template:
+      type: kubernetes.io/basic-auth
+      data:
+        username: 'generalApps'
+        password: '{{ .password }}'
+  data:
+  - secretKey: password
+    remoteRef:
+      key: "2414638d-a830-48e3-bcd1-b34500ed78c4"
