@@ -27,4 +27,4 @@ spec:
     email: ${SECRET_EMAIL}
     groupName: acme.${SECRET_DOMAIN}
     njalla:
-      existingSecret: bw-secrets-cert
+      existingSecret: njalla-api-secret

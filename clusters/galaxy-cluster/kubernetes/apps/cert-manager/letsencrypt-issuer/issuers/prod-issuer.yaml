@@ -20,5 +20,5 @@ spec:
             solverName: njalla
             config:
               apiKeySecretRef:
-                name: bw-secrets-cert
+                name: njalla-api-secret
                 key: token
