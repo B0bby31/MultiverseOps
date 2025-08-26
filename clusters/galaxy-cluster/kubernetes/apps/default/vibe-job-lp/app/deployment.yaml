@@ -15,7 +15,7 @@ spec:
         app: landingpage
     spec:
       imagePullSecrets:
-        - name: ghcr-auth
+        - name: ghcr-io-auth
       securityContext:
         runAsNonRoot: true              # Pod must not run as root
         runAsUser: 1000                 # Non-root UID
