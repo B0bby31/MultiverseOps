@@ -1,5 +1,11 @@
 When using this helmfile, you have to first create a secret to authenticate with the Bitwarden Secrets Manager (see https://bitwarden.com/help/secrets-manager-kubernetes-operator/#installation).
 
+( Switch this step to: 
+kubectl create secret generic bitwarden-access-token \
+  --from-literal=token=<Machine API Token> \ 
+  -n external-secrets
+)
+
 Moreover, at the moment, you have to create a dockerconfigjson secret so flux can pull from OCIRegistries (see authentication in https://fluxcd.io/flux/cheatsheets/oci-artifacts/ )
 
 Additionally, you have to install these CRDs for cert-manager:
