@@ -37,7 +37,7 @@ spec:
           login: true
           superuser: false
           passwordSecret:
-            name: generalapps-auth
+            name: genapps-auth
       affinity:
         podAntiAffinityType: preferred
         topologyKey: kubernetes.io/hostname
