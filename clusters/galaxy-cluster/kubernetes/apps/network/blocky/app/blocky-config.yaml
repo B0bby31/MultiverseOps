@@ -21,8 +21,7 @@ customDNS:
   customTTL: 1h
   mapping:
     lp.de.plutode.com: 192.168.15.40
-    ha.de.plutode.com: 10.11.0.52
-    edit.ha.de.plutode.com: 10.11.0.51
+    ha.de.plutode.com: 10.21.0.40
     jellyfin.de.plutode.com: 10.21.0.31
     nas.de.plutode.com: 10.21.0.31
     request.de.plutode.com: 10.21.0.40
