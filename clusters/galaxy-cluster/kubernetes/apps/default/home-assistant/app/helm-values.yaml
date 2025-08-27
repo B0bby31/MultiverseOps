@@ -51,9 +51,9 @@ ingress:
         - path: /
           pathType: Prefix
   tls:
-   - secretName: home-assistant-tls
-     hosts:
-       - ha.${SECRET_DOMAIN}
+    - secretName: home-assistant-tls
+      hosts:
+        - ha.${SECRET_DOMAIN}
 
 # Configuration for Home Assistant
 configuration:
