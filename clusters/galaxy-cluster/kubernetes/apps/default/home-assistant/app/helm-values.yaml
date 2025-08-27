@@ -85,7 +85,7 @@ configuration:
 
 envFrom: 
   - secretRef:
-    name: home-assistant-secrets
+      name: home-assistant-secrets
 
 serviceMonitor:
   # requires HA integration:  https://www.home-assistant.io/integrations/prometheus/
