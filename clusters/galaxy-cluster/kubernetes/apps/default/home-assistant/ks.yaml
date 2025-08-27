@@ -18,6 +18,8 @@ spec:
   dependsOn:
     - name: home-assistant-database
       namespace: database
+    - name: openebs
+      namespace: openebs-system
   wait: true
   interval: 30m
   retryInterval: 1m

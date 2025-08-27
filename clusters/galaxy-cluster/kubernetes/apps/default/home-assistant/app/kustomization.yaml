@@ -6,8 +6,8 @@ resources:
   - ./external-secret.yaml
   - ./helmrelease.yaml
 configMapGenerator:
-  - name: home-assistant-values
+  - name: hass-config
     files:
-      - values.yaml=./helm-values.yaml
+      - configuration.yaml=./hass-config.yaml
 configurations:
   - kustomizeconfig.yaml
