@@ -15,13 +15,19 @@ spec:
       config:
         data:
           mosquitto.conf: |
-            allow_anonymous true
+            allow_anonymous false
+            password_file /mosquitto/config_includes/passes.txt
             autosave_interval 60
             connection_messages false
-            listener 1883
+            listener 1883 0.0.0.0
             per_listener_settings false
             persistence true
             persistence_location /config
+      pass:
+        data:
+          passes.txt: |
+            ha:${HA_PASS}
+            nuki:${NUKI_PASS}
     controllers:
       mosquitto:
         pod:
@@ -30,6 +36,16 @@ spec:
             runAsGroup: 2000
             runAsNonRoot: true
             fsGroup: 2000
+
+        # Hash the password file
+        initContainers:
+          init-pass:
+            enabled: true
+            image:
+              repository: public.ecr.aws/docker/library/eclipse-mosquitto
+              tag: 2.0.22
+            command: ["/bin/sh", "-c", "mosquitto_passwd -U passes.txt; cp passes.txt /data/passes.txt"]
+
         containers:
           app:
             image:
@@ -54,6 +70,15 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}-cache"
+      pass-file:
+        type: emptyDir
+        advancedMounts:
+          mosquitto:
+            app:
+              - path: /mosquitto/config_includes
+            init-pass:
+              - path: /data
+
       config-file:
         type: configMap
         identifier: config
@@ -62,6 +87,15 @@ spec:
             app:
               - path: /mosquitto/config/mosquitto.conf
                 subPath: mosquitto.conf
+      pass-temp:
+        type: configMap
+        identifier: pass
+        advancedMounts:
+          mosquitto:
+            init-pass:
+              - path: /passes.txt
+                subPath: passes.txt
+          
               
     service:
       mosquitto-lb:
@@ -78,6 +112,7 @@ spec:
 
       mosquitto-cluster:
         controller: mosquitto
+        nameOverride: "mqtt"
         type: ClusterIP
         ports:
           mqtt:
