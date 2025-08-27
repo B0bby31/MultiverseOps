@@ -18,15 +18,13 @@ spec:
   dependsOn:
     - name: radarr-database
       namespace: database
-  wait: true
+  wait: false
   interval: 30m
   retryInterval: 1m
   timeout: 5m
   postBuild:
     substituteFrom:
-      - name: bw-secrets-default
-        kind: Secret
-      - name: generalapps-auth
+      - name: cluster-secrets
         kind: Secret
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1

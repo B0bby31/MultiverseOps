@@ -26,7 +26,7 @@ spec:
               repository: ghcr.io/fallenbagel/jellyseerr
               tag: 2.7.3@sha256:9cc9e9ee6cd5cf5a23feb45c37742ba34cfd6314d81d259cddb373a97ac92cdd
             env:
-              TZ: Europe/Amsterdam
+              TZ: ${SECRET_TZ}
               LOG_LEVEL: "info"
               PORT: &port 80
               DB_TYPE: postgres
@@ -34,8 +34,9 @@ spec:
               DB_PORT: "5432"
               DB_USER: generalApps
               DB_NAME: jellyseerr
-              DB_PASS: ${password}
-              API_KEY: ${JELLYSEER_API_KEY}
+            envFrom:
+              - secretRef:
+                  name: jellyseerr-secrets
             probes:
               liveness: &probes
                 enabled: true

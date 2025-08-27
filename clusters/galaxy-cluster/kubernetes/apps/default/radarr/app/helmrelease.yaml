@@ -32,17 +32,18 @@ spec:
               RADARR__APP__THEME: dark
               RADARR__AUTH__METHOD: External
               RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
-              RADARR__AUTH__APIKEY: "${RADARR_AUTH_API}"
               RADARR__POSTGRES__HOST: local-database-rw.database.svc.cluster.local
               RADARR__POSTGRES__PORT: 5432
               RADARR__POSTGRES__MAINDB: radarr-main
               RADARR__POSTGRES__LOGDB: radarr-log
               RADARR__POSTGRES__USER: generalApps
-              RADARR__POSTGRES__PASSWORD: ${password}
               RADARR__LOG__ANALYTICSENABLED: false
               RADARR__LOG__LEVEL: info
               RADARR__SERVER__PORT: &port 80
-              TZ: Europe/Berlin
+              TZ: ${SECRET_TZ}
+            envFrom:
+              - secretRef:
+                  name: radarr-secrets
             probes:
               liveness: &probes
                 enabled: true

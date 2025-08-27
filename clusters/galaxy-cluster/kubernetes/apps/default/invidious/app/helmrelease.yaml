@@ -33,3 +33,19 @@ spec:
   valuesFrom:
     - kind: ConfigMap
       name: invidious-values
+    - targetPath: config.hmac_key
+      kind: Secret
+      name: invidious-secrets
+      valuesKey: invidious-hmac
+    - targetPath: config.po_token
+      kind: Secret
+      name: invidious-secrets
+      valuesKey: invidious-po-token
+    - targetPath: config.visitor_data
+      kind: Secret
+      name: invidious-secrets
+      valuesKey: invidious-visitor-data
+    - targetPath: config.db.password
+      kind: Secret
+      name: invidious-secrets
+      valuesKey: pg-password

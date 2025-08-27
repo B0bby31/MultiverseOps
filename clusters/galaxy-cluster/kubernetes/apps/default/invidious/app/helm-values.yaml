@@ -31,10 +31,6 @@ config:
     host: local-database-rw.database.svc.cluster.local
     port: 5432
     dbname: invidious
-    password: ${password}
-  hmac_key: ${INVIDIOUS_HMAC}
-  po_token: ${INVIDIOUS_PO_TOKEN}
-  visitor_data: ${INVIDIOUS_VISITOR_DATA}
   port: 3000
   external_port: 443
   domain: "inv.${SECRET_DOMAIN}"

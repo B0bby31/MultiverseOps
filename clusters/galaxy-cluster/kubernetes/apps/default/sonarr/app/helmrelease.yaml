@@ -22,6 +22,8 @@ spec:
   values:
     controllers:
       sonarr:
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
@@ -32,17 +34,18 @@ spec:
               SONARR__APP__THEME: dark
               SONARR__AUTH__METHOD: External
               SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
-              SONARR__AUTH__APIKEY: "${SONARR_AUTH_API}"
               SONARR__POSTGRES__HOST: local-database-rw.database.svc.cluster.local
               SONARR__POSTGRES__PORT: 5432
               SONARR__POSTGRES__MAINDB: sonarr-main
               SONARR__POSTGRES__LOGDB: sonarr-log
               SONARR__POSTGRES__USER: generalApps
-              SONARR__POSTGRES__PASSWORD: ${password}
               SONARR__LOG__ANALYTICSENABLED: false
               SONARR__LOG__LEVEL: info
               SONARR__SERVER__PORT: &port 80
-              TZ: Europe/Berlin
+              TZ: ${SECRET_TZ}
+            envFrom:
+              - secretRef:
+                  name: sonarr-secrets
             probes:
               liveness: &probes
                 enabled: true
