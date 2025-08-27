@@ -41,6 +41,8 @@ spec:
         initContainers:
           init-pass:
             enabled: true
+            securityContext:
+              readOnlyRootFilesystem: false
             image:
               repository: public.ecr.aws/docker/library/eclipse-mosquitto
               tag: 2.0.22
@@ -90,6 +92,7 @@ spec:
       pass-temp:
         type: configMap
         identifier: pass
+        defaultMode: 448
         advancedMounts:
           mosquitto:
             init-pass:
