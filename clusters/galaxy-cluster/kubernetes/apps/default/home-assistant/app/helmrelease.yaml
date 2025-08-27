@@ -75,7 +75,7 @@ spec:
         advancedMounts:
           home-assistant:
             setup-config:
-              - path: /config-templates
+              - path: /config-templates/configuration.yaml
 
       config-claim:
         existingClaim: hass-config
