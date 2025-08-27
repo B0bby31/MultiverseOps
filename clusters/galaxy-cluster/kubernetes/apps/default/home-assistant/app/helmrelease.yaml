@@ -75,10 +75,10 @@ spec:
         advancedMounts:
           home-assistant:
             setup-config:
-              - path: /config-templates/configuration.yaml
+              - path: /config-templates
 
       config-claim:
-        existingClaim: hass-config
+        existingClaim: hass-config-a
         advancedMounts:
           home-assistant:
             app:
@@ -89,10 +89,11 @@ spec:
       init-script:
         type: configMap
         name: init-script
+        defaultMode: 511
         advancedMounts:
           home-assistant:
             setup-config:
-              - path: /mnt/init/init.sh
+              - path: /mnt/init
             
       tmpfs:
         type: emptyDir

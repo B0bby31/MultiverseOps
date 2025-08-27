@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: hass-config
+  name: hass-config-a
 spec:
   accessModes: ["ReadWriteOnce"]
   resources:
