@@ -15,14 +15,14 @@ spec:
       config:
         data:
           mosquitto.conf: |
+            log_dest stdout
             allow_anonymous false
-            password_file /mosquitto/config_includes/passes.txt
-            autosave_interval 60
-            connection_messages false
-            listener 1883 0.0.0.0
-            per_listener_settings false
             persistence true
             persistence_location /config
+            autosave_interval 1800
+            password_file /mosquitto/config_includes/passes.txt
+            listener 1883 0.0.0.0
+
       pass:
         data:
           passes.txt: |
@@ -110,6 +110,8 @@ spec:
         ports:
           mqtt:
             port: 1883
+          mqtt-ws:
+            port: 8081
 
       mosquitto-cluster:
         controller: mosquitto
@@ -117,3 +119,5 @@ spec:
         ports:
           mqtt:
             port: 1883
+          mqtt-ws:
+            port: 8081
