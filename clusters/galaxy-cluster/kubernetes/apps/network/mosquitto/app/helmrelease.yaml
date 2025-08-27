@@ -40,13 +40,11 @@ spec:
         # Hash the password file
         initContainers:
           init-pass:
-            securityContext:
-              runAsUser: 0
             enabled: true    
             image:
               repository: public.ecr.aws/docker/library/eclipse-mosquitto
               tag: 2.0.22
-            command: ["/bin/sh", "-c", "mosquitto_passwd -U /passes.txt && cp /passes.txt /data/passes.txt"]
+            command: ["/bin/sh", "-c", "cp /passes.txt /data/passes.txt && mosquitto_passwd -U /data/passes.txt"]
 
         containers:
           app:
