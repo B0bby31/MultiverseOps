@@ -46,7 +46,7 @@ spec:
             image:
               repository: public.ecr.aws/docker/library/eclipse-mosquitto
               tag: 2.0.22
-            command: ["/bin/sh", "-c", "mosquitto_passwd -U passes.txt; cp passes.txt /data/passes.txt"]
+            command: ["/bin/sh", "-c", "mosquitto_passwd -U /passes.txt && cp /passes.txt /data/passes.txt"]
 
         containers:
           app:
@@ -65,7 +65,7 @@ spec:
                 cpu: 10m
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities:
                 drop:
                   - ALL
