@@ -212,6 +212,7 @@ patches:
   - "@./patches/global/time.yaml"
   - "@./patches/global/sysctl.yaml"
   - "@./patches/global/sysupgrade.yaml"
+  - "@./patches/global/openebs.yaml"
 
 # Controller patches
 controlPlane:
