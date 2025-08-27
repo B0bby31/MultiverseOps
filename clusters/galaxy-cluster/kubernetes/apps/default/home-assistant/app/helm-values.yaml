@@ -46,14 +46,14 @@ ingress:
     kubernetes.io/tls-acme: "true"
     cert-manager.io/cluster-issuer: letsencrypt-prod
   hosts:
-    - host: ha.${SECRET_DOMAIN}
+    - host: "ha.${SECRET_DOMAIN}"
       paths:
         - path: /
           pathType: Prefix
   tls:
     - secretName: home-assistant-tls
       hosts:
-        - ha.${SECRET_DOMAIN}
+        - "ha.${SECRET_DOMAIN}"
 
 # Configuration for Home Assistant
 configuration:
@@ -97,7 +97,7 @@ configuration:
 
 env: 
   - name: TZ
-    value: ${SECRET_TZ}
+    value: "${SECRET_TZ}"
 
 envFrom: 
   - secretRef:
@@ -124,7 +124,7 @@ addons:
         cert-manager.io/cluster-issuer: letsencrypt-prod
       # Ingress hosts configuration
       hosts:
-        - host: edit.ha.${SECRET_DOMAIN}
+        - host: "edit.ha.${SECRET_DOMAIN}"
           paths:
             - path: /
               pathType: Prefix
@@ -132,4 +132,4 @@ addons:
       tls:
         - secretName: code-server-ha-tls
           hosts:
-            - edit.ha.${SECRET_DOMAIN}
+            - "edit.ha.${SECRET_DOMAIN}"
