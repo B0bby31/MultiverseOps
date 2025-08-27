@@ -112,7 +112,6 @@ spec:
 
       mosquitto-cluster:
         controller: mosquitto
-        nameOverride: "mqtt"
         type: ClusterIP
         ports:
           mqtt:
