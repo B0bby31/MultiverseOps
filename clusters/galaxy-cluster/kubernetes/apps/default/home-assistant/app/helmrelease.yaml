@@ -39,7 +39,7 @@ spec:
               - /bin/sh /mnt/init/init.sh
 
           init-hacs:
-            enabled: true
+            enabled: false
             image:
               repository: bash
               tag: "latest"
@@ -85,7 +85,7 @@ spec:
               - path: /config-templates
 
       config-claim:
-        existingClaim: hass-config-a
+        existingClaim: hass-config
         advancedMounts:
           home-assistant:
             app:
