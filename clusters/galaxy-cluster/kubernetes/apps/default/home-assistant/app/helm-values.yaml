@@ -41,19 +41,7 @@ statefulSetAnnotations:
 # Ingress settings
 ingress:
   # Enable ingress for home assistant
-  enabled: true
-  annotations:
-    kubernetes.io/tls-acme: "true"
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-  hosts:
-    - host: "ha.${SECRET_DOMAIN}"
-      paths:
-        - path: /
-          pathType: Prefix
-  tls:
-    - secretName: home-assistant-tls
-      hosts:
-        - "ha.${SECRET_DOMAIN}"
+  enabled: false
 
 # Configuration for Home Assistant
 configuration:
@@ -95,41 +83,11 @@ configuration:
     script: !include scripts.yaml
     scene: !include scenes.yaml
 
-env: 
-  - name: TZ
-    value: "${SECRET_TZ}"
-
 envFrom: 
   - secretRef:
     name: home-assistant-secrets
-
 
 serviceMonitor:
   # requires HA integration:  https://www.home-assistant.io/integrations/prometheus/
   enabled: false
   scrapeInterval: 30s
-
-# Addons configuration for additional services
-addons:
-  # Code-server addon configuration
-  codeserver:
-    # Enable or disable the code-server addon
-    enabled: true
-    ingress:
-      # Enable or disable the ingress for the code-server addon
-      enabled: true
-      # Ingress annotations
-      annotations:
-        kubernetes.io/tls-acme: "true"
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-      # Ingress hosts configuration
-      hosts:
-        - host: "edit.ha.${SECRET_DOMAIN}"
-          paths:
-            - path: /
-              pathType: Prefix
-      # Ingress TLS configuration
-      tls:
-        - secretName: code-server-ha-tls
-          hosts:
-            - "edit.ha.${SECRET_DOMAIN}"
