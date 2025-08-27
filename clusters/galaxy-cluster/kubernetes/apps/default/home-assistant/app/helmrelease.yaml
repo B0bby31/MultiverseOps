@@ -39,7 +39,7 @@ spec:
               - /bin/sh /mnt/init/init.sh
 
           init-hacs:
-            enabled: false
+            enabled: true
             image:
               repository: bash
               tag: "latest"
