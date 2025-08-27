@@ -42,6 +42,7 @@ spec:
             enabled: true
             image:
               repository: bash
+              tag: "latest"
             command: ["bash", "-c", "cd /config && wget -O - https://get.hacs.xyz | bash -"]
 
         containers:
