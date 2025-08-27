@@ -1,0 +1,135 @@
+# Default values for home-assistant.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Number of replicas for the deployment
+replicaCount: 1
+
+# Image settings
+image:
+  # Repository for the Home Assistant image
+  repository: ghcr.io/home-assistant/home-assistant
+  # Image pull policy
+  pullPolicy: IfNotPresent
+
+persistence:
+  enabled: true
+  storageClass: "openebs-hostpath"
+  accessMode: ReadWriteOnce
+  size: 5Gi
+
+podSecurityContext:
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000
+  fsGroupChangePolicy: "OnRootMismatch"
+
+securityContext:
+  capabilities:
+    drop:
+    - ALL
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 1000
+
+podAnnotations:
+  k8s.v1.cni.cncf.io/networks: network/multus-local
+
+statefulSetAnnotations:
+  reloader.stakater.com/auto: "true"
+
+# Ingress settings
+ingress:
+  # Enable ingress for home assistant
+  enabled: true
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  hosts:
+    - host: ha.${SECRET_DOMAIN}
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+   - secretName: home-assistant-tls
+     hosts:
+       - ha.${SECRET_DOMAIN}
+
+# Configuration for Home Assistant
+configuration:
+  # Enable or disable the configuration setup for Home Assistant
+  enabled: true
+
+  templateConfig: |-
+    # Loads default set of integrations. Do not remove.
+    default_config:
+
+    {{- if or .Values.ingress.enabled .Values.ingress.external }}
+    http:
+      use_x_forwarded_for: true
+      trusted_proxies:
+        {{- range .Values.configuration.trusted_proxies }}
+        - {{ . }}
+        {{- end }}
+    {{- end}}
+    # Load frontend themes from the themes folder
+    frontend:
+      themes: !include_dir_merge_named themes
+
+    recorder:
+      db_url: !env_var DB_URL
+      db_retry_wait: 15 # Wait 15 seconds before retrying
+      exclude:
+        domains:
+          - updater
+        entity_globs:
+          - sensor.weather_*
+        entities:
+          - sun.sun # Don't record sun data
+          - sensor.last_boot # Comes from 'systemmonitor' sensor platform
+          - sensor.date
+        event_types:
+          - call_service # Don't record service cal
+
+    automation: !include automations.yaml
+    script: !include scripts.yaml
+    scene: !include scenes.yaml
+
+env: 
+  - name: TZ
+    value: ${SECRET_TZ}
+
+envFrom: 
+  - secretRef:
+    name: home-assistant-secrets
+
+
+serviceMonitor:
+  # requires HA integration:  https://www.home-assistant.io/integrations/prometheus/
+  enabled: false
+  scrapeInterval: 30s
+
+# Addons configuration for additional services
+addons:
+  # Code-server addon configuration
+  codeserver:
+    # Enable or disable the code-server addon
+    enabled: true
+    ingress:
+      # Enable or disable the ingress for the code-server addon
+      enabled: true
+      # Ingress annotations
+      annotations:
+        kubernetes.io/tls-acme: "true"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      # Ingress hosts configuration
+      hosts:
+        - host: edit.ha.${SECRET_DOMAIN}
+          paths:
+            - path: /
+              pathType: Prefix
+      # Ingress TLS configuration
+      tls:
+        - secretName: code-server-ha-tls
+          hosts:
+            - edit.ha.${SECRET_DOMAIN}
