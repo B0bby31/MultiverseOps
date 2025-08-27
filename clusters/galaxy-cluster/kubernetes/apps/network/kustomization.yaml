@@ -6,3 +6,4 @@ resources:
   - ./multus/ks.yaml
   - ./whereabouts/ks.yaml
   - ./tailscale-sr/ks.yaml
+  - ./mosquitto/ks.yaml
