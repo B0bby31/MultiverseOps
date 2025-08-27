@@ -38,6 +38,12 @@ spec:
             args:
               - /bin/sh /mnt/init/init.sh
 
+          init-hacs:
+            enabled: true
+            image:
+              repository: bash
+            command: ["bash", "-c", "cd /config && wget -O - https://get.hacs.xyz | bash -"]
+
         containers:
           app:
             image:
@@ -85,6 +91,8 @@ spec:
               - path: /config
             setup-config:
               - path: /config
+            init-hacs:
+              - path: /config
 
       init-script:
         type: configMap
@@ -109,7 +117,7 @@ spec:
           kubernetes.io/tls-acme: "true"
           cert-manager.io/cluster-issuer: letsencrypt-prod
         hosts:
-          - host: "ha.${SECRET_DOMAIN}"
+          - host: "temp.ha.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
@@ -118,4 +126,4 @@ spec:
         tls:
           - secretName: home-assistant-tls
             hosts:
-              - ha.${SECRET_DOMAIN}
+              - temp.ha.${SECRET_DOMAIN}
