@@ -36,7 +36,7 @@ spec:
               [{
                 "name":"multus-local",
                 "namespace": "network",
-                "ips": ["10.11.0.35/32"]
+                "ips": ["10.11.0.35/16"]
               }]
           securityContext:
             runAsUser: 2000
