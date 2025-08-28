@@ -100,7 +100,7 @@ spec:
               - sonarr.${SECRET_DOMAIN}
     persistence:
       config:
-        type: emptyDir
+        existingClaim: "sonarr"
       media:
         type: nfs
         server: 192.168.31.21

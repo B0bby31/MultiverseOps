@@ -22,6 +22,8 @@ spec:
   values:
     controllers:
       radarr:
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
@@ -98,7 +100,7 @@ spec:
               - radarr.${SECRET_DOMAIN}
     persistence:
       config:
-        type: emptyDir
+        existingClaim: "radarr"
       media:
         type: nfs
         server: 192.168.31.21
