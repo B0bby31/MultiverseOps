@@ -9,8 +9,9 @@ spec:
     {
       "cniVersion": "0.3.1",
       "name": "multus-lan",
-      "type": "bridge",
-      "bridge": "br0",
+      "type": "macvlan",
+      "master": "bond0",
+      "mode": "bridge",
       "ipam": {
         "type": "whereabouts",
         "range": "192.168.31.0/24",
