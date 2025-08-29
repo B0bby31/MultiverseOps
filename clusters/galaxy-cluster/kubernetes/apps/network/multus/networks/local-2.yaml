@@ -8,19 +8,26 @@ spec:
     {
       "cniVersion": "0.3.1",
       "name": "multus-local-2",
-      "type": "macvlan",
-      "master": "bond0.10",
-      "mode": "bridge",
-      "ipam": {
-        "type": "static",
-        "addresses": [
-          {
-            "address": "10.11.0.35/16",
-            "gateway": "10.11.0.1"
+      "plugins": [
+        {
+          "type": "macvlan",
+          "master": "bond0.10",
+          "mode": "bridge",
+          "ipam": {
+            "type": "static",
+            "addresses": [
+              {
+                "address": "10.11.0.35/16",
+                "gateway": "10.11.0.1"
+              }
+            ],
+            "routes": [
+              { "dst": "10.11.0.0/16" }
+            ]
           }
-        ],
-        "routes": [
-          { "dst": "10.11.0.0/16" }
-        ]
-      }
+        },
+        {
+          "type": "sbr"
+        }
+      ]
     }
