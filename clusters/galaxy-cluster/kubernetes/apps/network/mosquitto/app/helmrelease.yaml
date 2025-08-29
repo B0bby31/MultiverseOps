@@ -31,6 +31,8 @@ spec:
     controllers:
       mosquitto:
         pod:
+          annotations:
+            k8s.v1.cni.cncf.io/networks: network/multus-local
           securityContext:
             runAsUser: 2000
             runAsGroup: 2000
