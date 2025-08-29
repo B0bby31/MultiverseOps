@@ -36,21 +36,13 @@ releases:
     values: ['../kubernetes/apps/cert-manager/cert-manager/app/helm-values.yaml']
     needs: ['kube-system/coredns']
 
-  - name: sm-operator
-    namespace: bitwarden-secrets
-    atomic: true
-    chart: bitwarden/sm-operator
-    version: 0.1.0
-    values: ['../kubernetes/apps/bitwarden-secrets/sm-operator/app/helm-values.yaml']
-    needs: ['kube-system/coredns']
-
   - name: reflector
     namespace: kube-system
     atomic: true
     chart: oci://ghcr.io/emberstack/helm-charts/reflector
     version: 9.1.27
     needs: ['kube-system/cilium']
-
+  
   - name: flux-operator
     namespace: flux-system
     atomic: true
