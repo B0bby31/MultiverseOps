@@ -17,7 +17,7 @@ spec:
           reloader.stakater.com/auto: "true"
         pod:
           annotations:
-            k8s.v1.cni.cncf.io/networks: network/multus-local
+            k8s.v1.cni.cncf.io/networks: network/multus-local-1
           securityContext:
             runAsUser: 65534
             runAsGroup: 65533

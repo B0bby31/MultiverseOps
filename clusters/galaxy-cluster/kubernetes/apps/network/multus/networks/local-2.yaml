@@ -1,0 +1,25 @@
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: multus-local-2
+spec:
+  config: |-
+    {
+      "cniVersion": "0.3.1",
+      "name": "multus-local",
+      "type": "macvlan",
+      "master": "bond0.10",
+      "mode": "bridge",
+      "ipam": {
+        "type": "static",
+        "addresses": [
+          {
+            "address": "10.11.0.35/16",
+            "gateway": "10.11.0.1"
+          }
+        ],
+        "routes": [
+          { "dst": "10.11.0.0/16" }
+        ]
+    }

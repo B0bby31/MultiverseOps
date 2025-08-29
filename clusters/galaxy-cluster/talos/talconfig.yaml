@@ -60,8 +60,14 @@ nodes:
         dhcp: false
         vlans:
           - vlanId: 10
+            dhcp: false
+            mtu: 1500
           - vlanId: 15
+            dhcp: false
+            mtu: 1500          
           - vlanId: 20
+            dhcp: false
+            mtu: 1500
 
   - hostname: milkyway
     controlPlane: true
@@ -101,8 +107,14 @@ nodes:
         dhcp: false
         vlans:
           - vlanId: 10
+            dhcp: false
+            mtu: 1500
           - vlanId: 15
+            dhcp: false
+            mtu: 1500          
           - vlanId: 20
+            dhcp: false
+            mtu: 1500
 
   - hostname: triangulum
     controlPlane: true
@@ -132,8 +144,14 @@ nodes:
         dhcp: false
         vlans:
           - vlanId: 10
+            dhcp: false
+            mtu: 1500
           - vlanId: 15
-          - vlanId: 20      
+            dhcp: false
+            mtu: 1500          
+          - vlanId: 20
+            dhcp: false
+            mtu: 1500    
 
 # Global patches
 patches:
