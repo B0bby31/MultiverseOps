@@ -27,8 +27,8 @@ spec:
         containers:
           app:
             image:
-              repository: lscr.io/linuxserver/radarr
-              tag: 5.26.2@sha256:7eb64f5af8bbe48e79bc55c0c37ca8db89b2f073a9ff0094f603916ae1df9de8 
+              repository: ghcr.io/11notes/radarr
+              tag: 5.26.2@sha256:e1f22c7cd0a18e725f686576891c30dba195911f2cd4e1eff77567de0563f597 
             env:
               RADARR__APP__INSTANCENAME: Radarr
               RADARR__APP__THEME: dark
