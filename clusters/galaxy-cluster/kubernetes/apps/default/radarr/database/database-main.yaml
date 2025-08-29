@@ -2,7 +2,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
-  name: radarr-db-main
+  name: radarr-db-main-a
 spec:
   name: radarr-main-a
   owner: generalApps
