@@ -2,9 +2,9 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
-  name: sonarr-db-log-a
+  name: sonarr-db-log
 spec:
-  name: sonarr-log-a
+  name: sonarr-log
   owner: generalApps
   cluster:
     name: local-database

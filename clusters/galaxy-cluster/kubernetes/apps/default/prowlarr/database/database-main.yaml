@@ -2,9 +2,9 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
-  name: prowlarr-db-main-a
+  name: prowlarr-db-main
 spec:
-  name: prowlarr-main-a
+  name: prowlarr-main
   owner: generalApps
   cluster:
     name: local-database
