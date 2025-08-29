@@ -100,6 +100,10 @@ spec:
     persistence:
       config:
         existingClaim: "radarr"
+      radarr:
+        type: emptyDir
+        globalMounts:
+          - path: /radarr/etc
       media:
         type: nfs
         server: 192.168.31.21
