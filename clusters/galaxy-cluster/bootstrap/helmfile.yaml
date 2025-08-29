@@ -49,7 +49,7 @@ releases:
     chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator
     version: 0.28.0
     values: ['../kubernetes/apps/flux-system/flux-operator/app/helm-values.yaml']
-    needs: ['cert-manager/cert-manager', 'bitwarden-secrets/sm-operator', 'kube-system/reflector']
+    needs: ['cert-manager/cert-manager', 'kube-system/reflector']
 
   - name: flux-instance
     namespace: flux-system
