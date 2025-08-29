@@ -36,8 +36,8 @@ spec:
               PROWLARR__AUTH__REQUIRED: DisabledForLocalAddresses
               PROWLARR__POSTGRES__HOST: local-database-rw.database.svc.cluster.local
               PROWLARR__POSTGRES__PORT: 5432
-              PROWLARR__POSTGRES__MAINDB: prowlarr-main
-              PROWLARR__POSTGRES__LOGDB: prowlarr-log
+              PROWLARR__POSTGRES__MAINDB: prowlarr-main-a
+              PROWLARR__POSTGRES__LOGDB: prowlarr-log-a
               PROWLARR__POSTGRES__USER: generalApps  
               PROWLARR__LOG__ANALYTICSENABLED: false          
               PROWLARR__LOG__LEVEL: info

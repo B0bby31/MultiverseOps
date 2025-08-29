@@ -4,7 +4,7 @@ kind: Database
 metadata:
   name: radarr-db-main
 spec:
-  name: radarr-main
+  name: radarr-main-a
   owner: generalApps
   cluster:
     name: local-database

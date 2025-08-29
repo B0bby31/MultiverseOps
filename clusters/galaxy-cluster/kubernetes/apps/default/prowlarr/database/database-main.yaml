@@ -4,7 +4,7 @@ kind: Database
 metadata:
   name: prowlarr-db-main
 spec:
-  name: prowlarr-main
+  name: prowlarr-main-a
   owner: generalApps
   cluster:
     name: local-database
