@@ -25,6 +25,8 @@ spec:
     substituteFrom:
       - name: mqtt-secrets
         kind: Secret
+      - name: cluster-secrets
+        kind: Secret
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
