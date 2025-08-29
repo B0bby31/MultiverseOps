@@ -10,7 +10,7 @@ spec:
       "name": "multus-local",
       "type": "macvlan",
       "master": "bond0.10",
-      "mode": "bridge",
+      "mode": "vepa",
       "ipam": {
         "type": "static",
         "addresses": [
