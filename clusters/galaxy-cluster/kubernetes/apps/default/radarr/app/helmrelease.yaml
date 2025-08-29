@@ -27,8 +27,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/home-operations/radarr
-              tag: 5.26.2@sha256:c83c91282a2be00a86628d1bb0eb0cb76dee31fd66575254f98c56b6206d2d6e  
+              repository: lscr.io/linuxserver/radarr
+              tag: 5.26.2@sha256:7eb64f5af8bbe48e79bc55c0c37ca8db89b2f073a9ff0094f603916ae1df9de8 
             env:
               RADARR__APP__INSTANCENAME: Radarr
               RADARR__APP__THEME: dark
@@ -41,7 +41,6 @@ spec:
               RADARR__POSTGRES__USER: generalApps
               RADARR__LOG__ANALYTICSENABLED: false
               RADARR__LOG__LEVEL: info
-              RADARR__SERVER__PORT: &port 80
               TZ: ${SECRET_TZ}
             envFrom:
               - secretRef:
@@ -53,7 +52,7 @@ spec:
                 spec:
                   httpGet:
                     path: /ping
-                    port: *port
+                    port: 7878
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -81,7 +80,7 @@ spec:
         controller: radarr
         ports:
           http:
-            port: *port
+            port: 7878
     ingress:
       app:
         annotations:
