@@ -27,8 +27,7 @@ spec:
           }
         },
         {
-            "type": "vrf",
-            "vrfname": "blue"
+            "type": "sbr"
         }
       ]
     }
