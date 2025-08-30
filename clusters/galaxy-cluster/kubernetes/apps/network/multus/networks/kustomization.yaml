@@ -5,4 +5,5 @@ kind: Kustomization
 resources:
   - ./local-1.yaml
   - ./local-2.yaml
+  - ./known-1.yaml
   - ./lan.yaml
