@@ -73,8 +73,6 @@ spec:
               requests:
                 cpu: 10m
             securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
               capabilities:
                 drop:
                   - ALL
