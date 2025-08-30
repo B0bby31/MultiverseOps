@@ -51,12 +51,12 @@ spec:
           init-route:
             image:
               repository: alpine
-              tag: latest
+              tag: 3.22.1
             command:
               - /bin/sh
               - -c
               - |
-                ip route add 10.11.0.0/16 dev net1 || true
+                ip route add 10.11.0.0/16 dev net1
             securityContext:
               runAsUser: 0
               runAsNonRoot: false
