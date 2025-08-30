@@ -36,9 +36,6 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  dependsOn:
-    - name: multus
-    - name: whereabouts
   wait: true
   interval: 30m
   retryInterval: 1m
