@@ -6,4 +6,4 @@ resources:
   - ./local-1.yaml
   - ./local-2.yaml
   - ./known-1.yaml
-  - ./lan.yaml
+  - ./lan-1.yaml
