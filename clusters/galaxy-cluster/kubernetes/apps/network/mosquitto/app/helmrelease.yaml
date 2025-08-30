@@ -48,7 +48,24 @@ spec:
               repository: public.ecr.aws/docker/library/eclipse-mosquitto
               tag: 2.0.22
             command: ["/bin/sh", "-c", "cp /passes.txt /data/passes.txt && mosquitto_passwd -U /data/passes.txt"]
-
+          init-route:
+            image:
+              repository: public.ecr.aws/docker/library/eclipse-mosquitto
+              tag: 2.0.22
+            command:
+              - /bin/sh
+              - -c
+              - |
+                # Wait up to 10 seconds for net1 to appear
+                for i in $(seq 1 10); do
+                  ip link show net1 && break
+                  echo "Waiting for net1 interface..."
+                  sleep 1
+                done
+                ip route add 10.11.0.0/16 dev net1
+            securityContext:
+              capabilities:
+                add: ["NET_ADMIN"]
         containers:
           app:
             image:
