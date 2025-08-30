@@ -43,17 +43,6 @@ spec:
               repository: bash
               tag: "latest"
             command: ["bash", "-c", "cd /config && wget -O - https://get.hacs.xyz | bash -"]
-          
-          setup-route:
-            enabled: true
-            image: 
-              repository: alpine
-              tag: "latest"
-            securityContext:
-              capabilities:
-                add:
-                  - NET_ADMIN
-            command: ["/bin/sh", "-c", "ip route add 10.11.0.0/16 dev net1 || true"]
 
 
         containers:
