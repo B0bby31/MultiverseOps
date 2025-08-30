@@ -34,11 +34,7 @@ spec:
           annotations:
             k8s.v1.cni.cncf.io/networks: network/multus-local-2
           securityContext:
-            runAsUser: 2000
-            runAsGroup: 2000
-            runAsNonRoot: true
-            fsGroup: 2000
-          
+            runAsUser: 0
 
         # Hash the password file
         initContainers:
@@ -50,20 +46,15 @@ spec:
             command: ["/bin/sh", "-c", "cp /passes.txt /data/passes.txt && mosquitto_passwd -U /data/passes.txt"]
           init-route:
             image:
-              repository: public.ecr.aws/docker/library/eclipse-mosquitto
-              tag: 2.0.22
+              repository: alpine
+              tag: latest
             command:
               - /bin/sh
               - -c
               - |
-                # Wait up to 10 seconds for net1 to appear
-                for i in $(seq 1 10); do
-                  ip link show net1 && break
-                  echo "Waiting for net1 interface..."
-                  sleep 1
-                done
-                ip route add 10.11.0.0/16 dev net1
+                ip route add 10.11.0.0/16 dev net1 || true
             securityContext:
+              privileged: true
               capabilities:
                 add: ["NET_ADMIN"]
         containers:
