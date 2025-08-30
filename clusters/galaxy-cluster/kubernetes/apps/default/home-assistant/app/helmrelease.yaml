@@ -17,7 +17,7 @@ spec:
           reloader.stakater.com/auto: "true"
         pod:
           annotations:
-            k8s.v1.cni.cncf.io/networks: network/multus-local-1
+            k8s.v1.cni.cncf.io/networks: network/multus-local-1, network/multus-known-1
           securityContext:
             runAsUser: 65534
             runAsGroup: 65533
@@ -43,6 +43,22 @@ spec:
               repository: bash
               tag: "latest"
             command: ["bash", "-c", "cd /config && wget -O - https://get.hacs.xyz | bash -"]
+        
+          init-route:
+            image:
+              repository: alpine
+              tag: 3.22.1
+            command:
+              - /bin/sh
+              - -c
+              - |
+                ip route add 10.11.0.0/16 dev net1 && ip route add 10.21.0.0/16 dev net2
+            securityContext:
+              runAsUser: 0
+              runAsNonRoot: false
+              capabilities:
+                add:
+                  - NET_ADMIN
 
 
         containers:
@@ -124,7 +140,14 @@ spec:
                 service:
                   identifier: app
                   port: http
+          - host: "ha.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
         tls:
           - secretName: home-assistant-tls
             hosts:
               - temp.ha.${SECRET_DOMAIN}
+              - ha.${SECRET_DOMAIN}
