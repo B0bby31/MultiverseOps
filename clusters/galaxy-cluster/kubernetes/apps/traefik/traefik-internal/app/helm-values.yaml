@@ -24,22 +24,20 @@ service:
         network: lan
       annotations:
         "lbipam.cilium.io/sharing-key": "traefik-excep"
-      spec:
-        ports:
-          - port: 443
-            targetPort: 8000
-            protocol: TCP
+      ports:
+        - port: 443
+          targetPort: 8443
+          protocol: TCP
     exceptional-udp:
       type: LoadBalancer
       labels: 
         network: lan
       annotations:
         "lbipam.cilium.io/sharing-key": "traefik-excep"
-      spec:
-        ports:
-          - port: 443
-            targetPort: 8000
-            protocol: UDP
+      ports:
+        - port: 443
+          targetPort: 8443
+          protocol: UDP
 
 ports:
   web:
