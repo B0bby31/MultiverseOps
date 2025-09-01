@@ -25,6 +25,7 @@ ports:
   websecure:
     http3:
       enabled: true
+      advertisedPort: 443
 
 
 # -- Create a default IngressClass for Traefik
