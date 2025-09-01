@@ -11,6 +11,55 @@ http:
 frontend:
   themes: !include_dir_merge_named themes
 
+sensor:
+  - platform: integration
+    source: sensor.senec_house_power
+    name: senec_house_total_consumption_fb
+    unique_id: senec_house_total_consumption_fb
+    icon: mdi:home-import-outline
+    unit_prefix: k
+    round: 2
+
+  - platform: integration
+    source: sensor.senec_solar_generated_power
+    name: senec_solar_total_generated_fb
+    unique_id: senec_solar_total_generated_fb
+    icon: mdi:solar-power
+    unit_prefix: k
+    round: 2
+
+  - platform: integration
+    source: sensor.senec_battery_charge_power
+    name: senec_battery_total_charged_fb
+    unique_id: senec_battery_total_charged_fb
+    icon: mdi:home-battery
+    unit_prefix: k
+    round: 2
+
+  - platform: integration
+    source: sensor.senec_battery_discharge_power
+    name: senec_battery_total_discharged_fb
+    unique_id: senec_battery_total_discharged_fb
+    icon: mdi:home-battery-outline
+    unit_prefix: k
+    round: 2
+
+  - platform: integration
+    source: sensor.senec_grid_imported_power
+    name: senec_grid_total_import_fb
+    unique_id: senec_grid_total_import_fb
+    icon: mdi:transmission-tower-import
+    unit_prefix: k
+    round: 2
+
+  - platform: integration
+    source: sensor.senec_grid_exported_power
+    name: senec_grid_total_export_fb
+    unique_id: senec_grid_total_export_fb
+    icon: mdi:transmission-tower-export
+    unit_prefix: k
+    round: 2
+
 recorder:
   db_url: !env_var DB_URL
   db_retry_wait: 15 # Wait 15 seconds before retrying

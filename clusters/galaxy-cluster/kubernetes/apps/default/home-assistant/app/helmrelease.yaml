@@ -28,7 +28,7 @@ spec:
           setup-config:
             enabled: true
             env:
-              FORCE_INIT: false
+              FORCE_INIT: true
             image:
               repository: mikefarah/yq
               tag: "4"
