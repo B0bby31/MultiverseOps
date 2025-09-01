@@ -15,15 +15,31 @@ service:
   labels:
     network: known
 
+  additionalServices: 
+  ## -- An additional and optional internal Service.
+  ## Same parameters as external Service
+    exceptional:
+      type: LoadBalancer
+      labels: 
+        network: lan
+      annotations:
+        "lbipam.cilium.io/sharing-key": "traefik-excep"
+
 
 ports:
   web:
+    expose:
+      default: true
+      exceptional: true
     redirections:
       entryPoint:
         to: websecure
         scheme: https
         permanent: true
   websecure:
+    expose:
+      default: true
+      exceptional: true
     http3:
       enabled: true
       advertisedPort: 443
