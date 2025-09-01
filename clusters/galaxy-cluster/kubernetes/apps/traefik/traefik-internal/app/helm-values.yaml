@@ -14,30 +14,7 @@ service:
     "lbipam.cilium.io/sharing-key": "traefik-internal"
   labels:
     network: known
-  
-  additionalServices: 
-  ## -- An additional and optional internal Service.
-  ## Same parameters as external Service
-    exceptional-tcp:
-      type: LoadBalancer
-      labels: 
-        network: lan
-      annotations:
-        "lbipam.cilium.io/sharing-key": "traefik-excep"
-      ports:
-        - port: 443
-          targetPort: 8443
-          protocol: TCP
-    exceptional-udp:
-      type: LoadBalancer
-      labels: 
-        network: lan
-      annotations:
-        "lbipam.cilium.io/sharing-key": "traefik-excep"
-      ports:
-        - port: 443
-          targetPort: 8443
-          protocol: UDP
+
 
 ports:
   web:
