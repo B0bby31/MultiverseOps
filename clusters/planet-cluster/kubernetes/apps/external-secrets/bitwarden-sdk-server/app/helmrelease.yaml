@@ -1,0 +1,36 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/ocirepository-source-v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: bitwarden-sdk-server
+spec:
+  interval: 5m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  url: oci://ghcr.io/external-secrets/charts/bitwarden-sdk-server
+  ref:
+    tag: v0.5.1
+  secretRef:
+    name: ghcr-io-auth
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: bitwarden-sdk-server
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: bitwarden-sdk-server
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    deploymentAnnotations:
+      reloader.stakater.com/auto: "true"

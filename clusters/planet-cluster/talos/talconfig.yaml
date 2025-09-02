@@ -1,0 +1,168 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json
+clusterName: &clusterName planet-cluster
+
+# renovate: datasource=docker depName=ghcr.io/siderolabs/installer
+talosVersion: v1.10.7
+
+# renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
+kubernetesVersion: v1.33.4
+
+endpoint: https://192.168.231.31:6443
+clusterPodNets:
+  - "10.67.0.0/16"
+clusterSvcNets:
+  - "10.94.0.0/16"
+
+additionalApiServerCertSans: &sans
+  - k8s.lu.plutode.com
+  - &talosControlplaneVip 192.168.231.31
+  - 127.0.0.1 # KubePrism
+additionalMachineCertSans: *sans
+
+cniConfig:
+  name: none
+
+nodes:
+  - hostname: neptune
+    controlPlane: true
+    ipAddress: 192.168.231.6
+    installDisk: /dev/nvme1n1
+    nodeLabels:
+      intel.feature.node.kubernetes.io/gpu: "true"
+    talosImageURL: factory.talos.dev/metal-installer/ebb6c665e8f4e03469356bf1c0ebb632432b44ffbe9c11f970a6819d81e60f83
+    schematic:
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/intel-ucode
+            - siderolabs/i915
+            - siderolabs/nvme-cli
+            - siderolabs/thunderbolt
+    networkInterfaces:
+      - interface: enp3s0
+        dhcp: false
+        vlans:
+          - vlanId: 13
+      - interface: br0
+        dhcp: false
+        addresses:
+          - 192.168.231.6/24
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "192.168.231.1"
+        vip:
+          ip: *talosControlplaneVip
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+            - enp3s0
+      - interface: br1
+        dhcp: false
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+            - enp3s0.13
+
+  - hostname: jupiter
+    controlPlane: true
+    ipAddress: 192.168.231.7
+    installDisk: /dev/nvme0n1
+    nodeLabels:
+      intel.feature.node.kubernetes.io/gpu: "true"
+    talosImageURL: factory.talos.dev/metal-installer/ebb6c665e8f4e03469356bf1c0ebb632432b44ffbe9c11f970a6819d81e60f83
+    schematic:
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/intel-ucode
+            - siderolabs/i915
+            - siderolabs/nvme-cli
+            - siderolabs/thunderbolt
+    networkInterfaces:
+      - interface: enp3s0
+        dhcp: false
+        vlans:
+          - vlanId: 13
+      - interface: br0
+        dhcp: false
+        addresses:
+          - 192.168.231.7/24
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "192.168.231.1"
+        vip:
+          ip: *talosControlplaneVip
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+            - enp3s0
+      - interface: br1
+        dhcp: false
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+            - enp3s0.13
+
+  - hostname: uranus
+    controlPlane: true
+    ipAddress: 192.168.231.8
+    installDisk: /dev/nvme1n1
+    talosImageURL: factory.talos.dev/metal-installer/3fa423e105b38d5eb9f87e98f8a631eda84d61ee2ed00b3c49c5b45f3ce0eec8
+    schematic:
+      customization:
+          systemExtensions:
+              officialExtensions:
+                  - siderolabs/amd-ucode
+                  - siderolabs/amdgpu
+                  - siderolabs/nvme-cli
+    networkInterfaces:
+      - interface: eno1
+        dhcp: false
+        vlans:
+          - vlanId: 13
+      - interface: br0
+        dhcp: false
+        addresses:
+          - 192.168.231.8/24
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "192.168.231.1"
+        vip:
+          ip: *talosControlplaneVip
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+            - eno1
+      - interface: br1
+        dhcp: false
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+            - eno1.13
+
+
+# Global patches
+patches:
+  - "@./patches/global/files.yaml"
+  - "@./patches/global/kubelet.yaml"
+  - "@./patches/global/network.yaml"
+  - "@./patches/global/time.yaml"
+  - "@./patches/global/sysctl.yaml"
+  - "@./patches/global/sysupgrade.yaml"
+  - "@./patches/global/openebs.yaml"
+
+# Controller patches
+controlPlane:
+  nodeLabels:
+    topology.kubernetes.io/region: *clusterName
+    topology.kubernetes.io/zone: k
+  patches:
+    - "@./patches/controller/cluster.yaml"
+    - "@./patches/controller/disable-admission-controller.yaml"

@@ -1,0 +1,21 @@
+machine:
+  nodeLabels:
+    openebs.io/engine: mayastor
+    topology.kubernetes.io/region: planet-cluster # Add these labels, as they will be overwritten
+    topology.kubernetes.io/zone: k
+  kubelet:
+    extraMounts:
+      - destination: /var/openebs/local
+        type: bind
+        source: /var/openebs/local
+        options:
+          - bind
+          - rshared
+          - rw
+      - destination: /var/local/openebs
+        type: bind
+        source: /var/local/openebs
+        options:
+          - bind
+          - rshared
+          - rw

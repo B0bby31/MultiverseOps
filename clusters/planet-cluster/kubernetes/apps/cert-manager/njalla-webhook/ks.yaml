@@ -1,0 +1,30 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app njalla-webhook
+  namespace: &namespace cert-manager
+spec:
+  targetNamespace: *namespace
+  dependsOn:
+    - name: cert-manager
+      namespace: *namespace
+    - name: cluster-secrets
+      namespace: flux-system 
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  path: ./clusters/planet-cluster/kubernetes/apps/cert-manager/njalla-webhook/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
