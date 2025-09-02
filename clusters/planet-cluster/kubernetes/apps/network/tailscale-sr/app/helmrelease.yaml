@@ -20,6 +20,8 @@ spec:
   values:
     controllers:
       tailscale-sr:
+        annotations:
+          reloader.stakater.com/auto: "true"
         pod:
           annotations:
             k8s.v1.cni.cncf.io/networks: network/multus-lan-1
@@ -67,6 +69,11 @@ spec:
                 cpu: 50m
                 memory: 250Mi
             securityContext:
+              sysctls:
+                - name: net.ipv4.ip_forward
+                  value: "1"
+                - name: net.ipv6.conf.all.forwarding
+                  value: "1"
               allowPrivilegeEscalation: false
               capabilities:
                 add:
@@ -74,17 +81,21 @@ spec:
                 drop:
                   - ALL
               readOnlyRootFilesystem: true
-    defaultPodOptions:
       securityContext:
-        sysctls:
-          - name: net.ipv4.ip_forward
-            value: "1"
-          - name: net.ipv6.conf.all.forwarding
-            value: "1"
         fsGroup: 568
         runAsGroup: 568
         runAsNonRoot: true
         runAsUser: 568
-        seccompProfile:
-          type: RuntimeDefault
-      shareProcessNamespace: true
+    persistence:
+      tmpfs:
+        advancedMounts:
+          tailscale:
+            app:
+              - path: /.cache
+                subPath: cache
+              - path: /tmp
+                subPath: tmp
+              - path: /var/run
+                subPath: run
+        enabled: true
+        type: emptyDir
