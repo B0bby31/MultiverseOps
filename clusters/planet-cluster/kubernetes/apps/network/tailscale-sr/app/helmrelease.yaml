@@ -25,22 +25,6 @@ spec:
             k8s.v1.cni.cncf.io/networks: network/multus-lan-1
         type: deployment
         replicas: 1
-        initContainers:
-          init-route:
-            image:
-              repository: alpine
-              tag: 3.22.1
-            command:
-              - /bin/sh
-              - -c
-              - |
-                ip route add 0.0.0.0/0 dev net1
-            securityContext:
-              runAsUser: 0
-              runAsNonRoot: false
-              capabilities:
-                add:
-                  - NET_ADMIN
         containers:
           app:
             env:
