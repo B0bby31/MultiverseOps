@@ -56,6 +56,9 @@ spec:
               TS_SNAT_SUBNET_ROUTES: false
               TS_USERSPACE: true
               TZ: "${SECRET_TZ}"
+            envFrom:
+              - secretRef:
+                  name: tailscale-sr-secrets
             image:
               repository: ghcr.io/tailscale/tailscale
               tag: v1.86.5@sha256:9e2bfdd9e2ce724df53f976d06a4a9933aa730dc655ace42798f4c73735d1cac

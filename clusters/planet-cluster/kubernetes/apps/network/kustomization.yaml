@@ -5,4 +5,3 @@ resources:
   - ./namespace.yaml
   - ./blocky/ks.yaml
   - ./multus/ks.yaml
-  - ./tailscale-sr/ks.yaml
