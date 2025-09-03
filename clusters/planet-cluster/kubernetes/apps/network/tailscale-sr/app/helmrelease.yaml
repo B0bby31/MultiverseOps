@@ -33,7 +33,7 @@ spec:
               NO_AUTOUPDATE: true
               PORT: &tailnetPort 45387
               TS_DEBUG_MTU: 1420
-              TS_EXTRA_ARGS: --accept-routes
+              TS_EXTRA_ARGS: --accept-routes --login-server=${TS_LOGIN_SERVER}
               TS_HOSTNAME: "tailscale-galaxy"
               TS_KUBE_SECRET: ""
               TS_ROUTES: "192.168.231.0/24,192.168.13.0/24"

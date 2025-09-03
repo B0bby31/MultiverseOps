@@ -25,3 +25,5 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
+      - name: tailscale-sr-secrets
+        kind: Secret
