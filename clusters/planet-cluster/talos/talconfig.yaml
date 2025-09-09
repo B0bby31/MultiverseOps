@@ -40,10 +40,17 @@ nodes:
             - siderolabs/nvme-cli
             - siderolabs/thunderbolt
     networkInterfaces:
-      - interface: enp3s0
+      - interface: bond0
+        bond:
+          interfaces:
+            - enp3s0
+            - enp6s0
+          mode: active-backup
         dhcp: false
         vlans:
           - vlanId: 13
+            dhcp: false
+            mtu: 1500
       - interface: br0
         dhcp: false
         addresses:
@@ -57,14 +64,14 @@ nodes:
           stp:
             enabled: true
           interfaces:
-            - enp3s0
+            - bond0
       - interface: br1
         dhcp: false
         bridge:
           stp:
             enabled: true
           interfaces:
-            - enp3s0.13
+            - bond0.13
 
   - hostname: jupiter
     controlPlane: true
@@ -82,10 +89,17 @@ nodes:
             - siderolabs/nvme-cli
             - siderolabs/thunderbolt
     networkInterfaces:
-      - interface: enp3s0
+      - interface: bond0
+        bond:
+          interfaces:
+            - enp3s0
+            - enp6s0
+          mode: active-backup
         dhcp: false
         vlans:
           - vlanId: 13
+            dhcp: false
+            mtu: 1500
       - interface: br0
         dhcp: false
         addresses:
@@ -99,14 +113,14 @@ nodes:
           stp:
             enabled: true
           interfaces:
-            - enp3s0
+            - bond0
       - interface: br1
         dhcp: false
         bridge:
           stp:
             enabled: true
           interfaces:
-            - enp3s0.13
+            - bond0.13
 
   - hostname: uranus
     controlPlane: true
@@ -115,16 +129,22 @@ nodes:
     talosImageURL: factory.talos.dev/metal-installer/3fa423e105b38d5eb9f87e98f8a631eda84d61ee2ed00b3c49c5b45f3ce0eec8
     schematic:
       customization:
-          systemExtensions:
-              officialExtensions:
-                  - siderolabs/amd-ucode
-                  - siderolabs/amdgpu
-                  - siderolabs/nvme-cli
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/amd-ucode
+            - siderolabs/amdgpu
+            - siderolabs/nvme-cli
     networkInterfaces:
-      - interface: eno1
+      - interface: bond0
+        bond:
+          interfaces:
+            - eno1
+          mode: active-backup
         dhcp: false
         vlans:
           - vlanId: 13
+            dhcp: false
+            mtu: 1500
       - interface: br0
         dhcp: false
         addresses:
@@ -138,14 +158,14 @@ nodes:
           stp:
             enabled: true
           interfaces:
-            - eno1
+            - bond0
       - interface: br1
         dhcp: false
         bridge:
           stp:
             enabled: true
           interfaces:
-            - eno1.13
+            - bond0.13
 
 
 # Global patches
@@ -155,7 +175,6 @@ patches:
   - "@./patches/global/network.yaml"
   - "@./patches/global/time.yaml"
   - "@./patches/global/sysctl.yaml"
-  - "@./patches/global/sysupgrade.yaml"
   - "@./patches/global/openebs.yaml"
 
 # Controller patches
@@ -164,5 +183,6 @@ controlPlane:
     topology.kubernetes.io/region: *clusterName
     topology.kubernetes.io/zone: k
   patches:
+    - "@./patches/controller/sysupgrade.yaml"
     - "@./patches/controller/cluster.yaml"
     - "@./patches/controller/disable-admission-controller.yaml"
