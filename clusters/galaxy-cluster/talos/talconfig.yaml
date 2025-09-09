@@ -160,7 +160,6 @@ patches:
   - "@./patches/global/network.yaml"
   - "@./patches/global/time.yaml"
   - "@./patches/global/sysctl.yaml"
-  - "@./patches/global/sysupgrade.yaml"
   - "@./patches/global/openebs.yaml"
 
 # Controller patches
@@ -169,5 +168,6 @@ controlPlane:
     topology.kubernetes.io/region: *clusterName
     topology.kubernetes.io/zone: m
   patches:
+    - "@./patches/controller/sysupgrade.yaml"
     - "@./patches/controller/cluster.yaml"
     - "@./patches/controller/disable-admission-controller.yaml"
