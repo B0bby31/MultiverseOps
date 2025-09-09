@@ -32,6 +32,8 @@ spec:
       app.kubernetes.io/name: *app
   path: ./clusters/galaxy-cluster/kubernetes/apps/network/multus/networks
   prune: true
+  dependsOn:
+    - name: multus
   sourceRef:
     kind: GitRepository
     name: flux-system
