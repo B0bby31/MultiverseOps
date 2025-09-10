@@ -52,7 +52,6 @@ spec:
             command: ["bash", "-c", "cd /config && wget -O - https://get.hacs.xyz | bash -"]
         
           init-route:
-            enabled: false
             image:
               repository: alpine
               tag: 3.22.1
