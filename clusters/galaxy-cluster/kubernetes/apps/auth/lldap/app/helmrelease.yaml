@@ -1,0 +1,110 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: lldap
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  install:
+    remediation:
+      retries: 1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 0
+  values:
+    controllers:
+      lldap:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          securityContext:
+            runAsUser: 1031
+            runAsGroup: 1031
+            fsGroup: 1031
+            fsGroupChangePolicy: OnRootMismatch
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/lldap/lldap
+              tag: 2025-08-31-alpine-rootless@sha256:7afcedfb8d124de687a5ca917da7c50c05b4f5266c20b70a85f31b12c2abc281
+            envFrom:
+              - secretRef:
+                  name: lldap-secrets
+            env:
+              UID: 1031
+              GID: 1031
+              TZ: ${SECRET_TZ}
+              LLDAP_LDAPS_OPTIONS__ENABLED: true
+              LLDAP_LDAPS_OPTIONS__CERT_FILE: /certs/tls.crt
+              LLDAP_LDAPS_OPTIONS__KEY_FILE: /certs/tls.key
+              LLDAP_SMTP_OPTIONS__ENABLE_PASSWORD_RESET: false
+              LLDAP_LDAP_BASE_DN: dc=plutode,dc=com
+            resources:
+              requests:
+                cpu: 100m
+                memory: 2Gi
+              limits:
+                memory: 2Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+
+    service:
+      app:
+        primary: true
+        controller: lldap
+        type: ClusterIP
+        ports:
+          http:
+            port: 17170
+          ldaps:
+            port: 6360
+            targetPort: 6360
+            protocol: TCP
+      lb-app:
+        controller: lldap
+        type: LoadBalancer
+        annotations:
+          "lbipam.cilium.io/ips": "192.168.31.37"
+        labels:
+          network: lan
+        ports:
+          ldaps:
+            port: 6360
+            targetPort: 6360
+            protocol: TCP
+
+    persistence:
+      certs:
+        name: lldap-tls
+        type: secret
+
+      data:
+        type: emptyDir
+
+    ingress:
+      app:
+        annotations:
+          kubernetes.io/tls-acme: "true"
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+        hosts:
+          - host: "lldap.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - secretName: lldap-tls
+            hosts:
+              - lldap.${SECRET_DOMAIN}
