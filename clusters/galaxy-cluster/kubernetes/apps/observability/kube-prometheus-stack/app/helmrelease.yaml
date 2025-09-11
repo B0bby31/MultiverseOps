@@ -226,31 +226,7 @@ spec:
             gnetId: 11454
             revision: 14
             datasource: Prometheus
-
-      datasources:
-        datasources.yaml:
-          apiVersion: 1
-          datasources:
-            - access: proxy
-              name: Prometheus
-              type: prometheus
-              url: http://prometheus-operated.observability.svc.cluster.local:9090
-              isDefault: true
-              jsonData:
-                prometheusType: Prometheus
-            - name: Alertmanager
-              type: alertmanager
-              access: proxy
-              url: http://alertmanager-operated.observability.svc.cluster.local:9093
-              jsonData:
-                implementation: prometheus
-
-          deleteDatasources:
-            - name: Alertmanager
-              orgId: 1
-            - name: Prometheus
-              orgId: 1
-
+   
       env:
         GF_ANALYTICS_CHECK_FOR_UPDATES: false
         GF_ANALYTICS_CHECK_FOR_PLUGIN_UPDATES: false
