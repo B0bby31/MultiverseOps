@@ -5,3 +5,5 @@ kind: Kustomization
 resources:
   - ./external-secret.yaml
   - ./helmrelease.yaml
+configurations:
+  - kustomizeconfig.yaml
