@@ -45,6 +45,7 @@ spec:
       nodeConfVolume: true
       nodeConfVolumeClaimTemplate:
         spec:
+          storageClassName: "openebs-hostpath"
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
