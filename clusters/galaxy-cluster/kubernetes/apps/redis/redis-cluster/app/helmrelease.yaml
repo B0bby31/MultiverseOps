@@ -1,0 +1,51 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: redis-cluster
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: redis-cluster
+      version: 0.17.0
+      sourceRef:
+        kind: HelmRepository
+        name: redis
+        namespace: redis
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    redisCluster:
+      name: "local-redis"
+      # -- Default number of replicas for both leader and follower when not explicitly set
+      clusterSize: 3
+      clusterVersion: v7
+      persistenceEnabled: true
+      image: quay.io/opstree/redis
+      tag: v7.0.15
+      redisSecret:
+        secretName: "redis-secrets"
+        secretKey: "password"
+      enableMasterSlaveAntiAffinity: true
+
+
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: "openebs-hostpath"
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 2Gi
+      nodeConfVolume: true
+      nodeConfVolumeClaimTemplate:
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 2Gi
