@@ -22,6 +22,9 @@ customDNS:
   mapping:
     lp.de.plutode.com: 192.168.15.40
     lldap.de.plutode.com: 10.21.0.40
+    grafana.de.plutode.com: 10.21.0.40
+    alertmanager.de.plutode.com: 10.21.0.40
+    prometheus.de.plutode.com: 10.21.0.40
     temp.ha.de.plutode.com: 10.21.0.40
     ha.de.plutode.com: 10.21.0.40
     mqtt.de.plutode.com: 10.11.0.111
