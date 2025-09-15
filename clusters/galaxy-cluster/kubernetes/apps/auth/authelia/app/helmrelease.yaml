@@ -31,11 +31,11 @@ spec:
   values:
     ingress:
       enabled: true
-      matchOverride: 'Host(auth.${SECRET_DOMAIN}) || Host(a.${SECRET_DOMAIN})'
       tls:
         enabled: true
       traefikCRD:
         enabled: true
+        matchOverride: 'Host(auth.${SECRET_DOMAIN}) || Host(a.${SECRET_DOMAIN})'
         tls:
           certResolver: 'letsencrypt-prod'
           domainsOverride:
@@ -48,11 +48,6 @@ spec:
         container:
           runAsUser: 2000
           runAsGroup: 2000
-          fsGroup: 2000
-        pod:
-          readOnlyRootFilesystem: false
-          privileged: false
-          allowPrivilegeEscalation: false
     persistence:
       enabled: false
     secret:
@@ -60,8 +55,10 @@ spec:
       additionalSecrets: {}
     configMap:
       telemetry:
-        serviceMonitor:
-          enabled: true 
+        metrics:
+          enabled: true
+          serviceMonitor:
+            enabled: true 
       default_2fa_method: 'totp'     
       theme: 'auto'
       definitions:
@@ -105,14 +102,9 @@ spec:
         default_policy: 'one_factor'
       session:
         cookies:
-          - domain: 'plutode.com'
-            authelia_url: 'auth.plutode.com'
-            default_redirection_url: 'plutode.com'
-            name: 'authelia-session'
-            same_site: 'lax'
-            inactivity: '5m'
-            expiration: '1h'    
-            remember_me: '1d'
+          - domain: plutode.com
+            authelia_url: https://auth.${SECRET_DOMAIN}
+            default_redirection_url: https://${SECRET_DOMAIN}
         redis:
           enabled: true
           host: 'local-redis-master.redis.svc.cluster.local'
