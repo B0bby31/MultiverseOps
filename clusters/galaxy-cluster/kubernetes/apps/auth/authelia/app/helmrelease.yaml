@@ -116,7 +116,7 @@ spec:
       storage:
         postgres:
           enabled: true
-          address: 'postgres://local-database-rw.database.svc.cluster.local'
+          address: 'tcp://local-database-rw.database.svc.cluster.local:5432'
           database: 'authelia'
           username: 'generalApps'
       notifier:
@@ -133,4 +133,18 @@ spec:
           jwks:
             - key:
                 path: '/secrets/authelia-oidc/jwk.RS256.pem'
-          clients: []
+          clients:
+            - client_id: JvnneGoHZNFlJ3U2zRoOz8xhFYkTKAMNAfl-QH3C7YqZSstWPs44Hpr6RR0VrEr2LKqjxVkL
+              client_name: SplitPro # Don't know
+              client_secret:
+                path: '/secrets/authelia-oidc/splitpro'
+              public: false
+              authorization_policy: one_factor # TODO: Change after correct 2nd factor setup done
+              redirect_uris:
+                - https://split.${SECRET_DOMAIN}/api/auth/oidc/callback
+              scopes:
+                - openid
+                - profile
+                - groups
+                - email
+              token_endpoint_auth_method: client_secret_post
