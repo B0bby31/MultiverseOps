@@ -52,7 +52,11 @@ spec:
       enabled: false
     secret:
       existingSecret: 'authelia-secrets'
-      additionalSecrets: {}
+      additionalSecrets:
+        authelia-oidc:
+          items:
+            - key: oidc_jwk_key
+              path: jwk.RS256.pem
     configMap:
       telemetry:
         metrics:
@@ -128,5 +132,5 @@ spec:
           claims_policies: {}
           jwks:
             - key:
-                path: '/secrets/authelia-secrets/jwk.RS256.pem'
+                path: '/secrets/authelia-oidc/jwk.RS256.pem'
           clients: []
