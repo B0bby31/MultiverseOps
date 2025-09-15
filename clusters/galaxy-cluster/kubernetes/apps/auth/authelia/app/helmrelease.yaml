@@ -57,6 +57,8 @@ spec:
           items:
             - key: oidc_jwk_key
               path: jwk.RS256.pem
+            - key: split_oidc_secret_digeset
+              path: splitpro
     configMap:
       telemetry:
         metrics:
