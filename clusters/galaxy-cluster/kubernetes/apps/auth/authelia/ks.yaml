@@ -2,23 +2,26 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app lldap
+  name: &app authelia
   namespace: &namespace auth
 spec:
   targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./clusters/galaxy-cluster/kubernetes/apps/auth/lldap/app
+  path: ./clusters/galaxy-cluster/kubernetes/apps/auth/authelia/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
   dependsOn:
-    - name: lldap-database
+    - name: authelia-database
       namespace: database
-  wait: true
+    - name: lldap
+    - name: redis-cluster
+      namespace: redis
+  wait: false
   interval: 30m
   retryInterval: 1m
   timeout: 5m
@@ -30,14 +33,14 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app lldap-database
+  name: &app authelia-database
   namespace: &namespace database
 spec:
   targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./clusters/galaxy-cluster/kubernetes/apps/auth/lldap/database
+  path: ./clusters/galaxy-cluster/kubernetes/apps/auth/authelia/database
   prune: true
   sourceRef:
     kind: GitRepository
