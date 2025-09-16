@@ -37,7 +37,9 @@ spec:
       certManager: true
       rulesOverride:
         - host: "auth.${SECRET_DOMAIN}"
+          path: "/"
         - host: "a.${SECRET_DOMAIN}"
+          path: "/"
       tls:
         enabled: true
         secret: 'authelia-tls'
