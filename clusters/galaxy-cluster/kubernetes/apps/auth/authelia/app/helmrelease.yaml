@@ -35,6 +35,9 @@ spec:
         kubernetes.io/tls-acme: "true"
         cert-manager.io/cluster-issuer: letsencrypt-prod
       certManager: true
+      rulesOverride:
+        - host: "auth.${SECRET_DOMAIN}"
+        - host: "a.${SECRET_DOMAIN}"
       tls:
         enabled: true
         secret: 'authelia-tls'
