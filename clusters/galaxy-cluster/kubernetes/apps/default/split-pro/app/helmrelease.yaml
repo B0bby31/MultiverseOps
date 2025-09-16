@@ -108,5 +108,11 @@ spec:
           split-pro:
             app:
               - path: /home/node/.cache 
+      node-local:
+        type: emptyDir
+        advancedMounts:
+          split-pro:
+            app:
+              - path: /home/node/.local
       tmp:
         type: emptyDir
