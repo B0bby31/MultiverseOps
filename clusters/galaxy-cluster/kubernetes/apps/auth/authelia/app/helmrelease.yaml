@@ -40,7 +40,7 @@ spec:
         secret: 'authelia-tls'
       traefikCRD:
         enabled: true
-        mdisableIngressRoute: true
+        disableIngressRoute: true
     pod:
       kind: 'DaemonSet'          
       securityContext:
