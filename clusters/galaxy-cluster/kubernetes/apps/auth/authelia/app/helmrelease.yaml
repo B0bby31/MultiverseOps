@@ -31,8 +31,13 @@ spec:
   values:
     ingress:
       enabled: true
+      annotations:
+        kubernetes.io/tls-acme: "true"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      certManager: true
       tls:
         enabled: true
+        secret: 'authelia-tls'
       traefikCRD:
         enabled: true
         matchOverride: 'Host(auth.${SECRET_DOMAIN}) || Host(a.${SECRET_DOMAIN})'
