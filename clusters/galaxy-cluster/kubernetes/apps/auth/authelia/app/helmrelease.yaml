@@ -40,13 +40,7 @@ spec:
         secret: 'authelia-tls'
       traefikCRD:
         enabled: true
-        matchOverride: 'Host(auth.${SECRET_DOMAIN}) || Host(a.${SECRET_DOMAIN})'
-        tls:
-          certResolver: 'letsencrypt-prod'
-          domainsOverride:
-            - main: 'auth.${SECRET_DOMAIN}'
-              sans:
-                - 'a.${SECRET_DOMAIN}'
+        mdisableIngressRoute: true
     pod:
       kind: 'DaemonSet'          
       securityContext:
@@ -152,6 +146,5 @@ spec:
               scopes:
                 - openid
                 - profile
-                - groups
                 - email
-              token_endpoint_auth_method: client_secret_post
+              userinfo_signed_response_alg: 'none'

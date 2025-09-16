@@ -1,0 +1,10 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: split-pro-db
+spec:
+  name: split-pro
+  owner: generalApps
+  cluster:
+    name: local-database
