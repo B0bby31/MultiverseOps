@@ -30,7 +30,7 @@ spec:
               repository: ghcr.io/oss-apps/splitpro
               tag: 1.5.3@sha256:4a456087fee1b25dbfb1f383fcb4e0785c4adaad9dacbda745bc9595d7d2cae0
             env:
-              NEXTAUTH_URL: http://localhost:3000
+              NEXTAUTH_URL: https://split.{SECRET_DOMAIN}
               DEFAULT_HOMEPAGE: /home
               DISABLE_EMAIL_SIGNUP: true
               FEEDBACK_EMAIL: split@plutode.com
