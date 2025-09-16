@@ -95,3 +95,18 @@ spec:
           - secretName: split-pro-tls
             hosts:
               - split.${SECRET_DOMAIN}
+    persistence:
+      next-cache:
+        type: emptyDir
+        advancedMounts:
+          split-pro:
+            app:
+              - path: /app/.next/cache
+      node-cache:
+        type: emptyDir
+        advancedMounts:
+          split-pro:
+            app:
+              - path: /home/node/.cache 
+      tmp:
+        type: emptyDir
