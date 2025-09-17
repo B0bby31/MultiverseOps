@@ -66,6 +66,10 @@ spec:
               limits:
                 memory: 1Gi
     defaultPodOptions:
+      hostAliases:
+        - ip: "10.21.0.40"
+          hostnames:
+            - "split.${SECRET_DOMAIN}"     
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
