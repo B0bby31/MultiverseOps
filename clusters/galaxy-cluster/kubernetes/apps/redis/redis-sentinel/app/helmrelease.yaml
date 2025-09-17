@@ -1,0 +1,34 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: redis-sentinel
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: redis-sentinel
+      version: 0.16.9
+      sourceRef:
+        kind: HelmRepository
+        name: redis
+        namespace: redis
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    redisSentinel:
+      name: "local-redis"
+      clusterSize: 3
+      image: quay.io/opstree/redis-sentinel
+      tag: v7.0.15
+      redisSecret:
+        secretName: "redis-secrets"
+        secretKey: "password"
+
+
+    redisSentinelConfig:
+      redisReplicationName: "local-redis"

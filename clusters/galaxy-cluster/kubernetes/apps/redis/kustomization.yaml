@@ -5,4 +5,5 @@ resources:
   - ./namespace.yaml
   - ./redis-operator/ks.yaml
   - ./redis-cluster/ks.yaml
+  - ./redis-sentinel/ks.yaml
   
