@@ -117,8 +117,14 @@ spec:
             default_redirection_url: https://${SECRET_DOMAIN}
         redis:
           enabled: true
-          host: 'local-redis-master.redis.svc.cluster.local'
+          host: 'local-redis.redis.svc.cluster.local'
           port: 6379
+          high_availability:
+            enabled: true
+            sentinel_name: 'myMaster'
+            nodes:
+              - host: 'local-redis-sentinel.redis.svc.cluster.local'
+                port: 26379
       storage:
         postgres:
           enabled: true
