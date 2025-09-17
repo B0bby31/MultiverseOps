@@ -147,7 +147,7 @@ spec:
               public: false
               authorization_policy: one_factor # TODO: Change after correct 2nd factor setup done
               redirect_uris:
-                - https://split.${SECRET_DOMAIN}/api/auth/callback/oidc
+                - https://split.${SECRET_DOMAIN}/api/auth/callback/authelia
               scopes:
                 - openid
                 - profile
