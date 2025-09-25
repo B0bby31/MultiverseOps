@@ -27,8 +27,6 @@ spec:
         pod:
           annotations:
             k8s.v1.cni.cncf.io/networks: network/multus-lan-1
-          securityContext:
-            fsGroup: 568
         type: deployment
         replicas: 1
         initContainers:
@@ -84,10 +82,8 @@ spec:
                 cpu: 50m
                 memory: 250Mi
             securityContext:
-              fsGroup: 568
-              runAsGroup: 568
-              runAsNonRoot: true
-              runAsUser: 568
+              runAsGroup: 0
+              runAsUser: 0
               sysctls:
                 - name: net.ipv4.ip_forward
                   value: "1"
