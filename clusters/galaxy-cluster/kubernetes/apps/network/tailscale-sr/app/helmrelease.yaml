@@ -25,6 +25,8 @@ spec:
         pod:
           annotations:
             k8s.v1.cni.cncf.io/networks: network/multus-lan-1
+          securityContext:
+            fsGroup: 568
         type: deployment
         replicas: 1
         containers:
