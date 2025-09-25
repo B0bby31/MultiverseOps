@@ -98,7 +98,7 @@ spec:
               # Create can not be restricted to a resource name.
               verbs: ["create"]
             - apiGroups: [""] # "" indicates the core API group
-              resourceNames: ["{{TS_KUBE_SECRET}}"]
+              resourceNames: ["tailscale-state"]
               resources: ["secrets"]
               verbs: ["get", "update", "patch"]
             - apiGroups: [""] # "" indicates the core API group
