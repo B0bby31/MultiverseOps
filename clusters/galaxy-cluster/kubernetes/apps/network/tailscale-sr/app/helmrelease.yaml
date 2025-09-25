@@ -112,6 +112,7 @@ spec:
             - kind: ServiceAccount
               name: "tailscale-sr"
           roleRef:
+            apiGroup: rbac.authorization.k8s.io
             kind: Role
             name: tailscale-sr
             identifier: tailscale-sr
