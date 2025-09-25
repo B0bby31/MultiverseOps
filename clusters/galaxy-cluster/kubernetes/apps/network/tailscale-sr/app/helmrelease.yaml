@@ -139,9 +139,3 @@ spec:
                 subPath: run
         enabled: true
         type: emptyDir
-      state:
-        existingClaim: tailscale-state
-        advancedMounts:
-          tailscale-sr:
-            app:
-              - path: /var/lib/tailscale
