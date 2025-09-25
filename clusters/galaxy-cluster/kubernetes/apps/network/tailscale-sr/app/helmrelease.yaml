@@ -87,6 +87,11 @@ spec:
                 drop:
                   - ALL
               readOnlyRootFilesystem: true
+    
+    serviceAccount:
+      tailscale-sr:
+        enabled: true
+
     rbac:
       roles:
         tailscale-sr:
@@ -109,14 +114,9 @@ spec:
           enabled: true
           type: RoleBinding
           subjects:
-            - kind: ServiceAccount
-              name: "tailscale-sr"
+            - identifier: tailscale-sr
           roleRef:
             identifier: tailscale-sr
-
-    serviceAccount:
-      tailscale-sr:
-        enabled: true
 
     persistence:
       tmpfs:
