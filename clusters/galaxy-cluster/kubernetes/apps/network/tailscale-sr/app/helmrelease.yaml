@@ -20,6 +20,8 @@ spec:
   values:
     controllers:
       tailscale-sr:
+        serviceAccount:
+          identifier: tailscale-sr
         annotations:
           reloader.stakater.com/auto: "true"
         pod:
@@ -36,9 +38,8 @@ spec:
               PORT: &tailnetPort 45387
               TS_DEBUG_MTU: 1420
               TS_HOSTNAME: "tailscale-galaxy"
-              TS_KUBE_SECRET: ""
+              TS_KUBE_SECRET: "tailscale-state"
               TS_ROUTES: "192.168.31.0/24,10.21.0.0/16"
-              TS_STATE_DIR: &path /var/lib/tailscale
               TS_TAILSCALED_EXTRA_ARGS: --debug=0.0.0.0:9001
               TS_SNAT_SUBNET_ROUTES: false
               TS_USERSPACE: true
@@ -86,6 +87,39 @@ spec:
                 drop:
                   - ALL
               readOnlyRootFilesystem: true
+    rbac:
+      roles:
+        tailscale-sr:
+          enabled: true
+          type: Role
+          rules:
+            - apiGroups: [""] # "" indicates the core API group
+              resources: ["secrets"]
+              # Create can not be restricted to a resource name.
+              verbs: ["create"]
+            - apiGroups: [""] # "" indicates the core API group
+              resourceNames: ["{{TS_KUBE_SECRET}}"]
+              resources: ["secrets"]
+              verbs: ["get", "update", "patch"]
+            - apiGroups: [""] # "" indicates the core API group
+              resources: ["events"]
+              verbs: ["get", "create", "patch"]
+      bindings:
+        tailscale-sr:
+          enabled: true
+          type: RoleBinding
+          subjects:
+            - kind: ServiceAccount
+              name: "tailscale-sr"
+          roleRef:
+            kind: Role
+            name: tailscale-sr
+            identifier: tailscale-sr
+
+    serviceAccount:
+      tailscale-sr:
+        enabled: true
+
     persistence:
       tmpfs:
         advancedMounts:
