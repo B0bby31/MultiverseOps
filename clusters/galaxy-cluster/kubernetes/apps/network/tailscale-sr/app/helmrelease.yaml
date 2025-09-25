@@ -77,6 +77,7 @@ spec:
               tag: v1.88.2@sha256:9d66a1c8922e174cd346c2776c7c6f4450589543d988ae1bb9cefd8de58fd6c2
             resources:
               limits:
+                squat.ai/tun: "1"
                 cpu: 1
                 memory: 420Mi
               requests:
@@ -96,6 +97,7 @@ spec:
               capabilities:
                 add:
                   - NET_BIND_SERVICE
+                  - NET_ADMIN
                 drop:
                   - ALL
               readOnlyRootFilesystem: true
@@ -143,3 +145,4 @@ spec:
                 subPath: run
         enabled: true
         type: emptyDir
+      
