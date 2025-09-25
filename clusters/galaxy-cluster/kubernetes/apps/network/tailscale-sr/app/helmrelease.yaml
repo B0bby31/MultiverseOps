@@ -41,7 +41,7 @@ spec:
               - /bin/sh
               - -c
               - |
-                ip route add 10.95.0.0/16 dev eth0 && ip route add 10.68.0.0/16 dev eth0
+                ip route add 10.21.0.0/16 dev net1 && ip route add 10.11.0.0/16 dev net1 && ip route add 192.168.0.0/16 dev net1
             securityContext:
               runAsUser: 0
               runAsNonRoot: false
