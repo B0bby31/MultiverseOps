@@ -20,7 +20,7 @@ spec:
             devices:
               - name: tun
                 groups:
-                  - count: 1000
+                  - count: 3
                     paths:
                       - path: /dev/net/tun
     controllers:
@@ -41,7 +41,7 @@ spec:
               limits:
                 memory: 64Mi
             securityContext:
-              # privileged: true
+              privileged: true
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities:
