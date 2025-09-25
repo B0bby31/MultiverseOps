@@ -31,6 +31,23 @@ spec:
             fsGroup: 568
         type: deployment
         replicas: 1
+        initContainers:
+
+          init-route:
+            image:
+              repository: alpine
+              tag: 3.22.1
+            command:
+              - /bin/sh
+              - -c
+              - |
+                ip route add 10.95.0.0/16 dev eth0
+            securityContext:
+              runAsUser: 0
+              runAsNonRoot: false
+              capabilities:
+                add:
+                  - NET_ADMIN
         containers:
           app:
             env:

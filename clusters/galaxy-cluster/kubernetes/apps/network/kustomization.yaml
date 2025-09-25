@@ -6,4 +6,4 @@ resources:
   - ./blocky/ks.yaml
   - ./multus/ks.yaml
   - ./mosquitto/ks.yaml
-#  - ./tailscale-sr/ks.yaml
+  - ./tailscale-sr/ks.yaml
