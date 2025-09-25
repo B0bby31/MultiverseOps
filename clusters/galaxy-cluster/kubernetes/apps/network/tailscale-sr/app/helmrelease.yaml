@@ -74,20 +74,7 @@ spec:
                   name: tailscale-sr-secrets
             image:
               repository: ghcr.io/tailscale/tailscale
-              tag: v1.88.2@sha256:9d66a1c8922e174cd346c2776c7c6f4450589543d988ae1bb9cefd8de58fd6c2 
-            probes:
-              liveness: &probes
-                custom: true
-                enabled: true
-                spec:
-                  failureThreshold: 3
-                  httpGet:
-                    path: /debug/pprof/
-                    port: &tailscalePort 9001
-                  initialDelaySeconds: 15
-                  periodSeconds: 20
-                  timeoutSeconds: 1
-              readiness: *probes
+              tag: v1.88.2@sha256:9d66a1c8922e174cd346c2776c7c6f4450589543d988ae1bb9cefd8de58fd6c2
             resources:
               limits:
                 cpu: 1
