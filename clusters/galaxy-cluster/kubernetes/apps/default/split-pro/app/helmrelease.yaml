@@ -33,6 +33,7 @@ spec:
               NEXTAUTH_URL: https://split.${SECRET_DOMAIN}
               DEFAULT_HOMEPAGE: /home
               DISABLE_EMAIL_SIGNUP: false
+              ENABLE_SENDING_INVITES: true
               FEEDBACK_EMAIL: split@plutode.com
               OIDC_NAME: authelia
               OIDC_CLIENT_ID: JvnneGoHZNFlJ3U2zRoOz8xhFYkTKAMNAfl-QH3C7YqZSstWPs44Hpr6RR0VrEr2LKqjxVkL
