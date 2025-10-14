@@ -47,7 +47,7 @@ spec:
                   name: tailscale-sr-secrets
             image:
               repository: ghcr.io/tailscale/tailscale
-              tag: v1.86.5@sha256:9e2bfdd9e2ce724df53f976d06a4a9933aa730dc655ace42798f4c73735d1cac
+              tag: v1.88.4@sha256:360e10ad95ad03950f66df03e0dab66287f9f89076ee4012d50bc6adceafcdf3
             probes:
               liveness: &probes
                 custom: true
