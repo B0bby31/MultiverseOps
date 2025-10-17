@@ -43,6 +43,11 @@ config:
   admins: ["Collin"]
   local: true
 
+  # -- Companion integration configuration
+  invidious_companion:
+    # -- Companion service URL (auto-filled if companion.enabled=true)
+    - private_url: "http://invidious-companion.default.svc.cluster.local:8282/companion"
+
 # -- Secret management configuration
 # Use existingSecret to reference an existing Kubernetes secret for production deployments
 existingSecret: "invidious-secrets"
