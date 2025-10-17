@@ -58,6 +58,22 @@ companion:
     # -- Companion container image tag (aligned with docker-compose template)
     tag: "master-a866b71"
 
+  # -- Companion resource limits and requests
+  resources:
+    # -- Resource limits for companion
+    limits:
+      # -- CPU limit for companion
+      cpu: 200m
+      # -- Memory limit for companion
+      memory: 1024Mi
+    # -- Resource requests for companion
+    requests:
+      # -- CPU request for companion
+      cpu: 100m
+      # -- Memory request for companion
+      memory: 512Mi
+  
+
   # -- Persistent volume configuration for companion cache
   persistence:
     # -- Enable persistent volume for YouTube library cache
