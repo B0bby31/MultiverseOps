@@ -11,7 +11,7 @@ spec:
     operation: copy
   url: oci://ghcr.io/external-secrets/charts/external-secrets
   ref:
-    tag: 0.19.2
+    tag: 0.20.3
   secretRef:
     name: ghcr-io-auth
 ---
