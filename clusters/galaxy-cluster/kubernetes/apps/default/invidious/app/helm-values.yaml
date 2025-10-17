@@ -3,7 +3,7 @@
 replicaCount: 1
 
 image:
-  tag: "2.20250517.0"
+  tag: "2.20250913.0"
 
 ingress:
   enabled: true
@@ -32,6 +32,7 @@ config:
     port: 5432
     dbname: invidious
   port: 3000
+  check_tables: true
   external_port: 443
   domain: "inv.${SECRET_DOMAIN}"
   https_only: true
@@ -41,13 +42,29 @@ config:
   captcha_enabled: false
   admins: ["Collin"]
   local: true
-  signature_server: invidious-sighelper.default.svc.cluster.local:12999
 
-sighelper:
+# -- Secret management configuration
+# Use existingSecret to reference an existing Kubernetes secret for production deployments
+existingSecret: "invidious-secrets"
+
+# -- Invidious Companion configuration (replaces sighelper for YouTube interaction)
+companion:
+  # -- Enable Invidious Companion deployment
   enabled: true
-  service:
-    port: 12999
+  # -- Companion container image configuration
   image:
-    repository: quay.io/invidious/inv-sig-helper
-    tag: master-dcda9f1
-    pullPolicy: Always
+    # -- Companion container image repository
+    repository: quay.io/invidious/invidious-companion
+    # -- Companion container image tag (aligned with docker-compose template)
+    tag: "master-a866b71"
+
+  # -- Persistent volume configuration for companion cache
+  persistence:
+    # -- Enable persistent volume for YouTube library cache
+    enabled: true
+    # -- Size of the persistent volume
+    size: 1Gi
+    # -- Access mode for the persistent volume
+    accessMode: ReadWriteOnce
+    # -- Storage class name (leave empty to use default)
+    storageClass: "openebs-hostpath"
