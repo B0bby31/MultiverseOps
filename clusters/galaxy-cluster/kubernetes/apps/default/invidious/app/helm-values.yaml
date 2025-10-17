@@ -89,3 +89,7 @@ companion:
     accessMode: ReadWriteOnce
     # -- Storage class name (leave empty to use default)
     storageClass: "openebs-hostpath"
+
+healthcheck:
+  # -- Enable health checks for the application
+  enabled: false
