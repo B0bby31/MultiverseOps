@@ -18,7 +18,7 @@ spec:
   chart:
     spec:
       chart: invidious
-      version: v3.1.0
+      version: v3.2.0
       sourceRef:
         kind: HelmRepository
         name: charts-plutode
