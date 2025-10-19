@@ -142,7 +142,7 @@ spec:
             frontend-app:
               - path: /run
                 readOnly: false
-      clientTemp:
+      cache:
         type: emptyDir
         advancedMounts:
           sparky-frontend:
