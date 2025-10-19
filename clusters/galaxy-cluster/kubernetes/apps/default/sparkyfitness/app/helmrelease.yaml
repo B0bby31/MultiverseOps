@@ -1,0 +1,119 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: sparkyfitness
+spec:
+  interval: 30m
+  timeout: 15m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    controllers:
+      sparky-backend:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          backend-app:
+            image:
+              repository: ghcr.io/codewithcj/sparkyfitness-server
+              tag: v0.15.7.3@sha256:9db835140262cd8380779fcdc190c79237176c888c2f8bde3c3a660ef29d151f 
+            env:
+              SPARKY_FITNESS_DB_NAME: sparkyfitness
+              SPARKY_FITNESS_FRONTEND_URL: https://fitness.${SECRET_DOMAIN}
+              SPARKY_FITNESS_DB_USER: generalApps
+              SPARKY_FITNESS_SERVER_PORT: &port-backend 3010
+              SPARKY_FITNESS_ADMIN_EMAIL: ${SECRET_EMAIL}
+              SPARKY_FITNESS_DB_HOST: local-database-rw.database.svc.cluster.local
+              TZ: ${SECRET_TZ}
+            envFrom:
+              - secretRef:
+                  name: sparkyfitness-secrets
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 1Gi
+      sparky-frontend:
+        containers:
+          frontend-app:
+            image:
+              repository: ghcr.io/codewithcj/sparkyfitness-frontend
+              tag: v0.15.7.3@sha256:c78e3ec294aa5c1983bd418c898e966c7bf45ba5017214ff88538073819a32b8
+            env:
+              SPARKY_FITNESS_SERVER_HOST: sparky-backend.default.svc.cluster.local
+              SPARKY_FITNESS_SERVER_PORT: *port-backend
+              TZ: ${SECRET_TZ}
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 1Gi
+    defaultPodOptions:
+      securityContext:
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities: { drop: ["ALL"] }
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
+    service:
+      backend-app:
+        controller: sparky-backend
+        ports:
+          http:
+            port: *port-backend
+      app:
+        controller: sparky-frontend
+        ports:
+          http:
+            port: &port-frontend 3004
+
+    ingress:
+      app:
+        annotations:
+          kubernetes.io/tls-acme: "true"
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+        hosts:
+          - host: "fitness.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - secretName: sparkyfitness-tls
+            hosts:
+              - fitness.${SECRET_DOMAIN}
+    persistence:
+      backup:
+        type: emptyDir
+        advancedMounts:
+          sparky-backend:
+            backend-app:
+              - path: /app/SparkyFitnessServer/backup
+                readOnly: false
+      images:
+        type: emptyDir
+        advancedMounts:
+          sparky-backend:
+            backend-app:
+              - path: /app/SparkyFitnessServer/uploads
+                readOnly: false
+      tmp:
+        type: emptyDir
+      

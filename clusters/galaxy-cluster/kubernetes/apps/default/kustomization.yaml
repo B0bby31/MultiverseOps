@@ -9,4 +9,5 @@ resources:
   - ./radarr/ks.yaml
   - ./jellyseerr/ks.yaml
   - ./split-pro/ks.yaml
+  - ./sparkyfitness/ks.yaml
   - ./home-assistant/ks.yaml
