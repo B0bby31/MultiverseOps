@@ -63,6 +63,8 @@ spec:
               path: jwk.RS256.pem
             - key: split_oidc_secret_digeset
               path: splitpro
+            - key: sparky_oidc_secret_digeset
+              path: sparkyfitness
     configMap:
       telemetry:
         metrics:
@@ -154,6 +156,19 @@ spec:
               authorization_policy: one_factor # TODO: Change after correct 2nd factor setup done
               redirect_uris:
                 - https://split.${SECRET_DOMAIN}/api/auth/callback/authelia
+              scopes:
+                - openid
+                - profile
+                - email
+              userinfo_signed_response_alg: 'none'
+            - client_id: lF1sYXDpRPmg8Kk4BA46tFooNVTXLaYj5o-JmAtPvV9kmcEJpynygDa4FcHz5OzvPxd1JxkM
+              client_name: SparkyFitness # Don't know
+              client_secret:
+                path: '/secrets/authelia-oidc/sparkyfitness'
+              public: false
+              authorization_policy: one_factor # TODO: Change after correct 2nd factor setup done
+              redirect_uris:
+                - https://fitness.${SECRET_DOMAIN}/oidc-callback
               scopes:
                 - openid
                 - profile
