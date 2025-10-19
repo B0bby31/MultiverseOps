@@ -8,3 +8,10 @@ spec:
   owner: generalApps
   cluster:
     name: local-database
+  extensions:
+  - name: pg_stat_statements
+    ensure: present
+  - name: pgcrypto
+    ensure: present
+  - name: uuid-ossp
+    ensure: present
