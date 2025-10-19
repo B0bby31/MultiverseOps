@@ -128,4 +128,11 @@ spec:
                 readOnly: false
       tmp:
         type: emptyDir
+      nginx:
+        type: emptyDir
+        advancedMounts:
+          sparky-frontend:
+            frontend-app:
+              - path: /etc/nginx/conf.d
+                readOnly: false
       
