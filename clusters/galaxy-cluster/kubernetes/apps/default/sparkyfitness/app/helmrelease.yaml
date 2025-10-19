@@ -45,6 +45,10 @@ spec:
                 cpu: 100m
               limits:
                 memory: 1Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
       sparky-frontend:
         containers:
           frontend-app:
@@ -60,11 +64,12 @@ spec:
                 cpu: 100m
               limits:
                 memory: 1Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
     defaultPodOptions:
       securityContext:
-        allowPrivilegeEscalation: false
-        readOnlyRootFilesystem: true
-        capabilities: { drop: ["ALL"] }
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
