@@ -142,4 +142,11 @@ spec:
             frontend-app:
               - path: /run
                 readOnly: false
+      clientTemp:
+        type: emptyDir
+        advancedMounts:
+          sparky-frontend:
+            frontend-app:
+              - path: /var/cache/nginx
+                readOnly: false
       
