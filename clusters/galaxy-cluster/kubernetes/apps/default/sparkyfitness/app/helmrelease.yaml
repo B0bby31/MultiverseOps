@@ -86,7 +86,7 @@ spec:
         controller: sparky-frontend
         ports:
           http:
-            port: &port-frontend 3004
+            port: 80
 
     ingress:
       app:
