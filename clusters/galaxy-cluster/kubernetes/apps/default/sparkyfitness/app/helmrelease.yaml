@@ -105,12 +105,26 @@ spec:
             hosts:
               - fitness.${SECRET_DOMAIN}
     persistence:
-      sparky:
+      uploads:
         type: emptyDir
         advancedMounts:
           sparky-backend:
             backend-app:
-              - path: /app/SparkyFitnessServer
+              - path: /app/SparkyFitnessServer/uploads
+                readOnly: false
+      backup:
+        type: emptyDir
+        advancedMounts:
+          sparky-backend:
+            backend-app:
+              - path: /app/SparkyFitnessServer/backup
+                readOnly: false
+      tempuploads:
+        type: emptyDir
+        advancedMounts:
+          sparky-backend:
+            backend-app:
+              - path: /app/SparkyFitnessServer/temp_uploads
                 readOnly: false
       tmp:
         type: emptyDir
