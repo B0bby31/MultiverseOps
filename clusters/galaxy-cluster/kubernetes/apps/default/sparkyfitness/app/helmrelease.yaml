@@ -135,4 +135,11 @@ spec:
             frontend-app:
               - path: /etc/nginx/conf.d
                 readOnly: false
+      run:
+        type: emptyDir
+        advancedMounts:
+          sparky-frontend:
+            frontend-app:
+              - path: /run
+                readOnly: false
       
