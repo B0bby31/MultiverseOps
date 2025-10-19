@@ -38,6 +38,7 @@ customDNS:
     prowlarr.de.plutode.com: 10.21.0.40
     radarr.de.plutode.com: 10.21.0.40
     youtube.de.plutode.com: 10.21.0.40
+    fitness.de.plutode.com: 10.21.0.40
     inv.de.plutode.com: 192.168.31.35
 
 # Split dns
