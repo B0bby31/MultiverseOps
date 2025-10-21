@@ -32,6 +32,7 @@ customDNS:
     a.de.plutode.com: 10.21.0.40
     mqtt.de.plutode.com: 10.11.0.111
     jellyfin.de.plutode.com: 10.21.0.31
+    mealie.de.plutode.com: 10.21.0.40
     nas.de.plutode.com: 10.21.0.31
     request.de.plutode.com: 10.21.0.40
     sonarr.de.plutode.com: 10.21.0.40

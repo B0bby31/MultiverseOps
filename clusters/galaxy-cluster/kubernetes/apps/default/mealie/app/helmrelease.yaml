@@ -1,0 +1,111 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: mealie
+spec:
+  interval: 30m
+  timeout: 5m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    controllers:
+      mealie:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/mealie-recipes/mealie
+              tag: v3.3.2@sha256:d51ae3b5051439844c1bbe437fb7edffa0826cb9988b366e17ffc7170a8d5ed2 
+            env:
+              ALLOW_SIGNUP: "false"
+              ALLOW_PASSWORD_LOGIN: "false"
+              PUID: &uid 1000
+              PGID: &gid 1000
+              API_PORT: &port 9000
+              DB_ENGINE: postgres
+              BASE_URL: https://mealie.${SECRET_DOMAIN}
+              POSTGRES_USER: generalApps
+              POSTGRES_PORT: 5432
+              POSTGRES_DB: mealie
+              POSTGRES_SERVER: local-database-rw.database.svc.cluster.local
+              OIDC_AUTH_ENABLED: "true"
+              OIDC_CLIENT_ID: C2Mm0dgvzQG-EDc6ZRN_bLcx1ZPMLSlzAUfFWaSrtGl_EYi0m9FZYdTpVI1f_3bLii~.uF-H
+              OIDC_CONFIGURATION_URL: https://auth.${SECRET_DOMAIN}/.well-known/openid-configuration
+              OIDC_AUTO_REDIRECT: "true"
+              OIDC_ADMIN_GROUP: pluto_admin
+              OIDC_PROVIDER_NAME: Authelia
+              OIDC_REMEMBER_ME: "true"
+              TZ: ${SECRET_TZ}
+            envFrom:
+              - secretRef:
+                  name: mealie-secrets
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 1Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+    defaultPodOptions:
+      hostAliases:
+        - ip: "10.21.0.40"
+          hostnames:
+            - "mealie.${SECRET_DOMAIN}"
+            - "auth.${SECRET_DOMAIN}"
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: *uid
+        runAsGroup: *gid
+        fsGroup: *uid
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
+    service:
+      app:
+        controller: mealie
+        ports:
+          http:
+            port: *port
+
+    ingress:
+      app:
+        annotations:
+          kubernetes.io/tls-acme: "true"
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+        hosts:
+          - host: "mealie.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - secretName: mealie-tls
+            hosts:
+              - mealie.${SECRET_DOMAIN}
+    persistence:
+      mealie-data:
+        existingClaim: "mealie"
+        advancedMounts:
+          mealie:
+            app:
+              - path: /app/data
+                readOnly: false
+      tmp:
+        type: emptyDir
+
+      

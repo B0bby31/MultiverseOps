@@ -10,4 +10,5 @@ resources:
   - ./jellyseerr/ks.yaml
   - ./split-pro/ks.yaml
   - ./sparkyfitness/ks.yaml
+  - ./mealie/ks.yaml
   - ./home-assistant/ks.yaml

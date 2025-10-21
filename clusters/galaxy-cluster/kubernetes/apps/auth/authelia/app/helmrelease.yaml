@@ -65,6 +65,8 @@ spec:
               path: splitpro
             - key: sparky_oidc_secret_digeset
               path: sparkyfitness
+            - key: mealie_oidc_secret_digeset
+              path: mealie
     configMap:
       telemetry:
         metrics:
@@ -175,3 +177,19 @@ spec:
                 - email
               userinfo_signed_response_alg: 'none'
               token_endpoint_auth_method: 'client_secret_post'
+            - client_id: C2Mm0dgvzQG-EDc6ZRN_bLcx1ZPMLSlzAUfFWaSrtGl_EYi0m9FZYdTpVI1f_3bLii~.uF-H
+              client_name: Mealie # Don't know
+              client_secret:
+                path: '/secrets/authelia-oidc/mealie'
+              public: false
+              authorization_policy: one_factor # TODO: Change after correct 2nd factor setup done
+              redirect_uris:
+                - https://mealie.${SECRET_DOMAIN}/login
+              scopes:
+                - openid
+                - profile
+                - email
+                - groups
+              userinfo_signed_response_alg: 'none'
+
+
