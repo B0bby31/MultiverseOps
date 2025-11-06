@@ -74,6 +74,7 @@ spec:
           hostnames:
             - "fitness.${SECRET_DOMAIN}"
             - "auth.${SECRET_DOMAIN}"
+            - "mealie.${SECRET_DOMAIN}"
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
