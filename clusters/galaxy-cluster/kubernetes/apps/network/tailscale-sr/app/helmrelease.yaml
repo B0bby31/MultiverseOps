@@ -72,7 +72,7 @@ spec:
                   name: tailscale-sr-secrets
             image:
               repository: ghcr.io/tailscale/tailscale
-              tag: v1.88.4@sha256:360e10ad95ad03950f66df03e0dab66287f9f89076ee4012d50bc6adceafcdf3
+              tag: v1.90.8@sha256:4dacf554cf34e84c15fb816aa68fb3428993c3d27feeafb86a9b3eb94248c40f
             resources:
               limits:
                 squat.ai/tun: "1"
