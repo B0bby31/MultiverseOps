@@ -75,9 +75,9 @@ spec:
         controller: lldap
         type: LoadBalancer
         annotations:
-          "lbipam.cilium.io/ips": "192.168.31.37"
+          "lbipam.cilium.io/ips": "192.168.67.13"
         labels:
-          network: lan
+          bgp: internal
         ports:
           ldaps:
             port: 6360
