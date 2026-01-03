@@ -12,18 +12,9 @@ service:
   type: LoadBalancer
   annotations:
     "lbipam.cilium.io/sharing-key": "traefik-internal"
+    "lbipam.cilium.io/ips": "192.168.67.12"
   labels:
-    network: known
-
-  additionalServices: 
-  ## -- An additional and optional internal Service.
-  ## Same parameters as external Service
-    exceptional:
-      type: LoadBalancer
-      labels: 
-        network: lan
-      annotations:
-        "lbipam.cilium.io/sharing-key": "traefik-excep"
+    bgp: internal
 
 
 ports:

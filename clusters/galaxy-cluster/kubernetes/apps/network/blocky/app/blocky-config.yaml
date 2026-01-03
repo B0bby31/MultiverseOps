@@ -20,27 +20,25 @@ bootstrapDns:
 customDNS:
   customTTL: 1h
   mapping:
-    lp.de.plutode.com: 192.168.15.40
-    lldap.de.plutode.com: 10.21.0.40
-    grafana.de.plutode.com: 10.21.0.40
-    alertmanager.de.plutode.com: 10.21.0.40
-    prometheus.de.plutode.com: 10.21.0.40
-    temp.ha.de.plutode.com: 10.21.0.40
-    ha.de.plutode.com: 10.21.0.40
-    split.de.plutode.com: 10.21.0.40
-    auth.de.plutode.com: 10.21.0.40
-    a.de.plutode.com: 10.21.0.40
+    lldap.de.plutode.com: 192.168.67.12
+    grafana.de.plutode.com: 192.168.67.12
+    alertmanager.de.plutode.com: 192.168.67.12
+    prometheus.de.plutode.com: 192.168.67.12
+    temp.ha.de.plutode.com: 192.168.67.12
+    ha.de.plutode.com: 192.168.67.12
+    split.de.plutode.com: 192.168.67.12
+    auth.de.plutode.com: 192.168.67.12
+    a.de.plutode.com: 192.168.67.12
     mqtt.de.plutode.com: 10.11.0.111
     jellyfin.de.plutode.com: 10.21.0.31
-    mealie.de.plutode.com: 10.21.0.40
+    mealie.de.plutode.com: 192.168.67.12
     nas.de.plutode.com: 10.21.0.31
-    request.de.plutode.com: 10.21.0.40
-    sonarr.de.plutode.com: 10.21.0.40
-    prowlarr.de.plutode.com: 10.21.0.40
-    radarr.de.plutode.com: 10.21.0.40
-    youtube.de.plutode.com: 10.21.0.40
-    fitness.de.plutode.com: 10.21.0.40
-    inv.de.plutode.com: 192.168.31.35
+    request.de.plutode.com: 192.168.67.12
+    sonarr.de.plutode.com: 192.168.67.12
+    prowlarr.de.plutode.com: 192.168.67.12
+    radarr.de.plutode.com: 192.168.67.12
+    youtube.de.plutode.com: 192.168.67.12
+    fitness.de.plutode.com: 192.168.67.12
 
 # Split dns
 conditional:
