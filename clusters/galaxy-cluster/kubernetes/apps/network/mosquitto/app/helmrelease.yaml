@@ -18,8 +18,7 @@ spec:
           mosquitto.conf: |
             log_dest stdout
             allow_anonymous false
-            persistence true
-            persistence_location /config
+            persistence false
             autosave_interval 1800
             password_file /mosquitto/config_includes/passes.txt
             listener 1883 0.0.0.0
@@ -32,8 +31,6 @@ spec:
     controllers:
       mosquitto:
         pod:
-          annotations:
-            k8s.v1.cni.cncf.io/networks: network/multus-local-2
           securityContext:
             runAsUser: 2000
             runAsGroup: 2000
@@ -48,21 +45,6 @@ spec:
               repository: public.ecr.aws/docker/library/eclipse-mosquitto
               tag: 2.0.22
             command: ["/bin/sh", "-c", "cp /passes.txt /data/passes.txt && mosquitto_passwd -U /data/passes.txt"]
-          init-route:
-            image:
-              repository: alpine
-              tag: 3.23.2
-            command:
-              - /bin/sh
-              - -c
-              - |
-                ip route add 10.11.0.0/16 dev net1
-            securityContext:
-              runAsUser: 0
-              runAsNonRoot: false
-              capabilities:
-                add:
-                  - NET_ADMIN
         containers:
           app:
             image:
@@ -85,8 +67,6 @@ spec:
                 drop:
                   - ALL
     persistence:
-      config:
-        existingClaim: "{{ .Release.Name }}-cache"
       pass-file:
         type: emptyDir
         advancedMounts:
@@ -124,3 +104,13 @@ spec:
             port: 1883
           mqtt-ws:
             port: 8081
+      mosquitto:
+        type: LoadBalancer
+        labels:
+          bgp: internal
+        annotations:
+          lbipam.cilium.io/ips: "192.168.67.14"
+        externalTrafficPolicy: Local
+        ports:
+          mqtt:
+            port: 1883

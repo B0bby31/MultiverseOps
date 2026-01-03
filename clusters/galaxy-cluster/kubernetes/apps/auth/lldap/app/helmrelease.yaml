@@ -78,6 +78,7 @@ spec:
           "lbipam.cilium.io/ips": "192.168.67.13"
         labels:
           bgp: internal
+        externalTrafficPolicy: Local
         ports:
           ldaps:
             port: 6360

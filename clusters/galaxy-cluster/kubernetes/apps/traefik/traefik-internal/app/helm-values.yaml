@@ -9,6 +9,7 @@ service:
   ## -- Single service is using `MixedProtocolLBService` feature gate.
   ## -- When set to false, it will create two Service, one for TCP and one for UDP.
   single: false
+  externalTrafficPolicy: Local
   type: LoadBalancer
   annotations:
     "lbipam.cilium.io/sharing-key": "traefik-internal"
