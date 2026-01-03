@@ -70,7 +70,7 @@ spec:
               capabilities: { drop: ["ALL"] }
     defaultPodOptions:
       hostAliases:
-        - ip: "10.21.0.40"
+        - ip: "192.168.67.12"
           hostnames:
             - "fitness.${SECRET_DOMAIN}"
             - "auth.${SECRET_DOMAIN}"
