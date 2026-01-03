@@ -1,0 +1,12 @@
+---
+apiVersion: "cilium.io/v2"
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: "internal-pool"
+spec:
+  blocks:
+  - start: "192.168.67.10"
+    stop: "192.168.67.90"
+  serviceSelector:     
+    matchExpressions:
+      - { key: bgp, operator: In, values: [ internal ] }
