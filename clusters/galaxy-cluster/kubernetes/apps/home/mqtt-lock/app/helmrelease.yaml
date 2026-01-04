@@ -44,7 +44,7 @@ spec:
               TZ: ${SECRET_TZ}
               MQTT_HOST: 10.11.0.102
               MQTT_PORT: 1883
-              MQTT_USERNAME: ha
+              MQTT_USERNAME: nuki
               MQTT_TOPIC: nuki/41AEA5E4/lockAction
             resources:
               requests:
