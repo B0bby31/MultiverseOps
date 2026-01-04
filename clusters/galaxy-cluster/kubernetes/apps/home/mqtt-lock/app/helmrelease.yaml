@@ -1,0 +1,75 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: mqtt-lock
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  install:
+    remediation:
+      retries: 1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 0
+  values:
+    controllers:
+      mqtt-lock:
+        type: daemonset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          securityContext:
+            runAsUser: 1031
+            runAsGroup: 1031
+            fsGroup: 1031
+            fsGroupChangePolicy: OnRootMismatch
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/b0bby31/mqtt-action-webhook
+              tag: v1.0.0@sha256:9ba3cfc53bb5f865691965604e7499aa0afd1b4cd7b87000da92209e5eece2ac
+            envFrom:
+              - secretRef:
+                  name: mqtt-lock-secrets
+            env:
+              UID: 1031
+              GID: 1031
+              TZ: ${SECRET_TZ}
+              MQTT_HOST: 10.11.0.102
+              MQTT_PORT: 1883
+              MQTT_USERNAME: ha
+              MQTT_TOPIC: nuki/41AEA5E4/lockAction
+            resources:
+              requests:
+                cpu: 100m
+                memory: 500Mi
+              limits:
+                memory: 2Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+
+    service:
+      lb-app:
+        controller: mqtt-lock
+        type: LoadBalancer
+        annotations:
+          "lbipam.cilium.io/ips": "192.168.67.15"
+        labels:
+          bgp: internal
+        externalTrafficPolicy: Local
+        ports:
+          web:
+            port: 80
+            targetPort: 3000
+            protocol: TCP
