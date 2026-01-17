@@ -28,7 +28,7 @@ spec:
           backend-app:
             image:
               repository: ghcr.io/codewithcj/sparkyfitness-server
-              tag: v0.15.7.3@sha256:9db835140262cd8380779fcdc190c79237176c888c2f8bde3c3a660ef29d151f 
+              tag: v0.16.3.4@sha256:932daac02fb0fbc733c2ae3b27a8714e6bf86bd3dc4566d40060abfc627d14c9 
             env:
               SPARKY_FITNESS_DB_NAME: sparkyfitness
               SPARKY_FITNESS_FRONTEND_URL: https://fitness.${SECRET_DOMAIN}
