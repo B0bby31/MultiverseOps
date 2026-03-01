@@ -23,11 +23,12 @@ ports:
     expose:
       default: true
       exceptional: true
-    redirections:
-      entryPoint:
-        to: websecure
-        scheme: https
-        permanent: true
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+          permanent: true
   websecure:
     expose:
       default: true
