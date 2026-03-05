@@ -11,7 +11,7 @@ spec:
     operation: copy
   url: oci://ghcr.io/emberstack/helm-charts/reflector
   ref:
-    tag: 10.0.14
+    tag: 10.0.16
   secretRef:
     name: ghcr-io-auth
 ---
