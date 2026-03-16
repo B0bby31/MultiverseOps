@@ -54,7 +54,7 @@ spec:
           frontend-app:
             image:
               repository: ghcr.io/codewithcj/sparkyfitness-frontend
-              tag: v0.15.7.3@sha256:c78e3ec294aa5c1983bd418c898e966c7bf45ba5017214ff88538073819a32b8
+              tag: v0.16.5.3@sha256:cac49cd8ebd3b852984b729e17a9406a3a838d1e8300f54f2fee7affcc60acf9
             env:
               SPARKY_FITNESS_SERVER_HOST: sparkyfitness-backend-app.default.svc.cluster.local
               SPARKY_FITNESS_SERVER_PORT: *port-backend
