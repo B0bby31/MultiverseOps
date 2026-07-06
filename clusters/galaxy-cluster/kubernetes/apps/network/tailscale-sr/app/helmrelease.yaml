@@ -34,7 +34,7 @@ spec:
           init-route:
             image:
               repository: alpine
-              tag: 3.23.4
+              tag: 3.24.1
             command:
               - /bin/sh
               - -c
