@@ -18,6 +18,12 @@ spec:
     remediation:
       retries: 0
   values:
+    defaultPodOptions:
+      hostAliases:
+        - ip: "192.168.67.12"
+          hostnames:
+            - "ha.${SECRET_DOMAIN}"
+            - "auth.${SECRET_DOMAIN}"
     controllers:
       home-assistant:
         annotations:
