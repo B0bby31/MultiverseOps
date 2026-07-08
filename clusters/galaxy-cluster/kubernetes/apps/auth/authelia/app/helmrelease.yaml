@@ -67,6 +67,8 @@ spec:
               path: sparkyfitness
             - key: mealie_oidc_secret_digeset
               path: mealie
+            - key: ha_oidc_secret_digeset
+              path: ha
     configMap:
       telemetry:
         metrics:
@@ -191,5 +193,23 @@ spec:
                 - email
                 - groups
               userinfo_signed_response_alg: 'none'
+            - client_id: DSy758ob2aHB9VCToqiczNimO4ZTpL5fF9UnRYKx6ec8L2wAk2gS9qr~S4RHVVzxraYxEe3j
+              client_name: 'Home Assistant' # Don't know
+              client_secret:
+                path: '/secrets/authelia-oidc/ha'
+              public: false
+              authorization_policy: one_factor # TODO: Change after correct 2nd factor setup done
+              redirect_uris:
+                - https://ha.${SECRET_DOMAIN}/auth/oidc/callback
+              scopes:
+                - openid
+                - profile
+                - email
+                - groups
+              require_pkce: true
+              pkce_challenge_method: 'S256'
+              token_endpoint_auth_method: 'client_secret_post'
+              userinfo_signed_response_alg: 'none'
+
 
 
