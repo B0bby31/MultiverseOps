@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: ghcr.io/oss-apps/splitpro
-              tag: v1.5.8@sha256:79ec9c8959b484c42829d217be51e38341b9ff7165d6d6872123c0ef3b0778b2
+              tag: v2.1.5@sha256:efaa52b30d009573c4bf70e5711d6447536914469420db58680e1e6779acde6e
             env:
               NEXTAUTH_URL: https://split.${SECRET_DOMAIN}
               DEFAULT_HOMEPAGE: /home
