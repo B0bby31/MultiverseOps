@@ -24,7 +24,7 @@ spec:
       name: "local-redis"
       clusterSize: 3
       image: quay.io/opstree/redis-sentinel
-      tag: v7.0.15
+      tag: v7.4.11
       redisSecret:
         secretName: "redis-secrets"
         secretKey: "password"
